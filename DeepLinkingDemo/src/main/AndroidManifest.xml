@@ -3,7 +3,8 @@
     package="sc.shortcut.deeplinkingdemo" >
 
     <application
-        android:allowBackup="true"
+        android:name="sc.shortcut.deeplinkingsdk.SCDeepLinkingApp"
+        android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
