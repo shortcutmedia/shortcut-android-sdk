@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/DeepLinkingDemo/DeepLinkingDemo.iml" filepath="$PROJECT_DIR$/DeepLinkingDemo/DeepLinkingDemo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/DeepLinkingSDK/DeepLinkingSDK.iml" filepath="$PROJECT_DIR$/DeepLinkingSDK/DeepLinkingSDK.iml" />
       <module fileurl="file://$PROJECT_DIR$/ShortcutDeferredDeepLinkingSDK.iml" filepath="$PROJECT_DIR$/ShortcutDeferredDeepLinkingSDK.iml" />
     </modules>
   </component>
