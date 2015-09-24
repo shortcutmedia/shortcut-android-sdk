@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/DeepLinkingDemo/DeepLinkingDemo.iml" filepath="$PROJECT_DIR$/DeepLinkingDemo/DeepLinkingDemo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/DeepLinkingDemoBeforeAPI14/DeepLinkingDemoBeforeAPI14.iml" filepath="$PROJECT_DIR$/DeepLinkingDemoBeforeAPI14/DeepLinkingDemoBeforeAPI14.iml" />
+      <module fileurl="file://$PROJECT_DIR$/DeepLinkingDemoCommon/DeepLinkingDemoCommon.iml" filepath="$PROJECT_DIR$/DeepLinkingDemoCommon/DeepLinkingDemoCommon.iml" />
       <module fileurl="file://$PROJECT_DIR$/DeepLinkingSDK/DeepLinkingSDK.iml" filepath="$PROJECT_DIR$/DeepLinkingSDK/DeepLinkingSDK.iml" />
       <module fileurl="file://$PROJECT_DIR$/ShortcutDeferredDeepLinkingSDK.iml" filepath="$PROJECT_DIR$/ShortcutDeferredDeepLinkingSDK.iml" />
     </modules>

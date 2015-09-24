@@ -9,9 +9,13 @@ import android.util.Log;
 public class SCDeepLinkingApp extends Application {
     private static final String LOG_TAG = SCDeepLinkingApp.class.getSimpleName();
 
+    private SCDeepLinking mSCDeepLinking;
+
     @Override
     public void onCreate() {
         super.onCreate();
         Log.d(LOG_TAG, "Application is starting");
+
+        mSCDeepLinking = SCDeepLinking.getInstance(this);
     }
 }
