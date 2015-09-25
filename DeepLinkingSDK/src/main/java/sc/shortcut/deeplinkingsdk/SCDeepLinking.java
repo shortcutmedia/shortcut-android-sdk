@@ -59,10 +59,6 @@ public class SCDeepLinking {
 
     private SCDeepLinking(Context context) {
         mContext = context;
-
-        Log.d(LOG_TAG, "INTENT (" + ((Activity) mContext).getIntent().hashCode() + ") with ACTION=" + ((Activity)mContext).getIntent().getAction());
-
-
         mPreference = new SCPreference(context.getApplicationContext());
 
         if (context instanceof SCDeepLinkingApp) {
@@ -78,56 +74,56 @@ public class SCDeepLinking {
         return sSCDeepLinking;
     }
 
+    public static SCDeepLinking getInstance() {
+        return sSCDeepLinking;
+    }
+
+
 
     public void start(Intent intent) {
+        Activity activity = (Activity) mContext;
+        start(activity, intent);
+    }
 
-        if (!mAutoSessionMode) {
-
-            Activity activity = (Activity) mContext;
-
-            Log.d(LOG_TAG, "INTENT (" + activity.getIntent().hashCode() + ") with ACTION=" + (activity.getIntent().getAction()));
+    public void start(Activity activity, Intent intent) {
 
 
-            mDeepLinkAtLaunch = getDeepLinkFromIntent(intent);
+//        if (!mAutoSessionMode) {
 
-            Log.d(LOG_TAG, "is first launch = " + isFirstLaunch());
+        mDeepLinkAtLaunch = getDeepLinkFromIntent(intent);
 
-            if (mDeepLinkAtLaunch == null && isFirstLaunch()) {
-                // check for deferred deep link
+        Log.d(LOG_TAG, "is first launch = " + isFirstLaunch());
 
-                PostTask postTask = new PostTask();
-                postTask.execute(new SCServerRequestRegisterFirstOpen());
-                try {
-                    SCServerResponse response = postTask.get(5000, TimeUnit.MILLISECONDS);
+        if (mDeepLinkAtLaunch == null && isFirstLaunch()) {
+            // check for deferred deep link
+            PostTask postTask = new PostTask();
+            postTask.execute(new SCServerRequestRegisterFirstOpen());
 
-                    Uri deferredDeepLink = response.getDeepLink();
+            try {
+                SCServerResponse response = postTask.get(5000, TimeUnit.MILLISECONDS);
 
-                    if (deferredDeepLink != null) {
-                        handleDeepLink(activity, deferredDeepLink);
-                    }
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                } catch (TimeoutException e) {
-                    e.printStackTrace();
+                Uri deferredDeepLink = response.getDeepLink();
+
+                if (deferredDeepLink != null) {
+                    handleDeepLink(activity, deferredDeepLink);
                 }
-            } else if (mDeepLinkAtLaunch != null) {
-                handleDeepLink(activity, mDeepLinkAtLaunch);
-                PostTask postTask = new PostTask();
-                postTask.execute(new SCServerRequestRegisterOpen(mLinkId));
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            } catch (TimeoutException e) {
+                e.printStackTrace();
             }
-
-            // clean up
-            if (isFirstLaunch()) {
-                mPreference.setFirstLuanch(false);
-            }
+        } else if (mDeepLinkAtLaunch != null) {
+            handleDeepLink(activity, mDeepLinkAtLaunch);
+            PostTask postTask = new PostTask();
+            postTask.execute(new SCServerRequestRegisterOpen(mLinkId));
         }
 
-
-//        PostTask postTask = new PostTask();
-//        postTask.execute(new SCServerRequestRegisterFirstOpen());
-
+        // clean up
+        if (isFirstLaunch()) {
+            mPreference.setFirstLuanch(false);
+        }
     }
 
     public Uri getDeepLink() {
@@ -148,30 +144,15 @@ public class SCDeepLinking {
     }
 
     private class PostTask extends AsyncTask<SCServerRequest, Void, SCServerResponse> {
-
-
         @Override
         protected SCServerResponse doInBackground(SCServerRequest... params) {
             SCServerRequest request = params[0];
             JSONObject json = request.doRequest();
             return new SCServerResponse(json);
         }
-
-//        @Override
-//        protected void onPostExecute(SCServerResponse response) {
-//            if (response != null) {
-//                if (mDeepLink == null) {
-//                    mDeepLink = response.getDeepLink();
-//                } else {
-//                    Log.w(LOG_TAG, "App was opened with a deep link and received a deferred " +
-//                            "deep link. This should never happen");
-//                }
-//            }
-//        }
     }
 
     private Uri getDeepLinkFromIntent(Intent intent) {
-//        Intent intent = activity.getIntent();
         String action = intent.getAction();
         Uri data = intent.getData();
          return Intent.ACTION_VIEW.equals(action) && data != null ? data : null;
@@ -205,41 +186,7 @@ public class SCDeepLinking {
         @Override
         public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
             Log.d(LOG_TAG, "onActivityCreated()");
-
-            mDeepLinkAtLaunch = getDeepLinkFromIntent(activity.getIntent());
-
-            Log.d(LOG_TAG, "is first launch = " + isFirstLaunch());
-
-            if (mDeepLinkAtLaunch == null && isFirstLaunch()) {
-                // check for deferred deep link
-
-                PostTask postTask = new PostTask();
-                postTask.execute(new SCServerRequestRegisterFirstOpen());
-                try {
-                    SCServerResponse response = postTask.get(5000, TimeUnit.MILLISECONDS);
-
-                    Uri deferredDeepLink = response.getDeepLink();
-
-                    if (deferredDeepLink != null) {
-                        handleDeepLink(activity, deferredDeepLink);
-                    }
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                } catch (TimeoutException e) {
-                    e.printStackTrace();
-                }
-            } else if (mDeepLinkAtLaunch != null) {
-                handleDeepLink(activity, mDeepLinkAtLaunch);
-                PostTask postTask = new PostTask();
-                postTask.execute(new SCServerRequestRegisterOpen(mLinkId));
-            }
-
-            // clean up
-            if (isFirstLaunch()) {
-                mPreference.setFirstLuanch(false);
-            }
+            SCDeepLinking.getInstance(activity).start(activity, activity.getIntent());
         }
 
         @Override
