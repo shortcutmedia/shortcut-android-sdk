@@ -1,9 +1,7 @@
-package sc.shortcut.deeplinkingsdk;
+package sc.shortcut.sdk.android.deeplinking;
 
 import android.os.Build;
-import android.util.Log;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;

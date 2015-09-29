@@ -1,11 +1,13 @@
-package sc.shortcut.deeplinkingsdk;
+package sc.shortcut.sdk.android.deeplinking;
 
 import android.content.Context;
+
+import sc.shortcut.sdk.android.deeplinking.SCPreference;
 
 /**
  * Created by franco on 23/09/15.
  */
-public class SCExtPreference extends SCPreference{
+public class SCExtPreference extends SCPreference {
 
     public SCExtPreference(Context context) {
         super(context);

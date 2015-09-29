@@ -1,4 +1,4 @@
-package sc.shortcut.deeplinkingsdk;
+package sc.shortcut.sdk.android.deeplinking;
 
 import java.util.HashMap;
 import java.util.Map;

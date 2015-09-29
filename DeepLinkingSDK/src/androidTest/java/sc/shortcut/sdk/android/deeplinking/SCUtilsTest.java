@@ -1,7 +1,9 @@
-package sc.shortcut.deeplinkingsdk;
+package sc.shortcut.sdk.android.deeplinking;
 
 import android.net.Uri;
 import android.test.AndroidTestCase;
+
+import sc.shortcut.sdk.android.deeplinking.SCUtils;
 
 public class SCUtilsTest extends AndroidTestCase {
 

@@ -1,8 +1,7 @@
-package sc.shortcut.deeplinkingsdk;
+package sc.shortcut.sdk.android.deeplinking;
 
 import android.net.Uri;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 /**

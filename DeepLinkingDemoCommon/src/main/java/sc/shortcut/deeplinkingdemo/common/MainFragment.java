@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import sc.shortcut.deeplinkingsdk.SCExtPreference;
+import sc.shortcut.sdk.android.deeplinking.SCExtPreference;
 
 public class MainFragment extends Fragment {
 
