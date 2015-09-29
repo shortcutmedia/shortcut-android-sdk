@@ -15,30 +15,38 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
-/**
- * Created by franco on 21/09/15.
- */
 public class SCServerRequest {
 
     private static final String TAG = SCServerRequest.class.getSimpleName();
 
-    protected static final String REQUEST_BASE_URL = "http://192.168.178.56:3000";
+    private static final String REQUEST_BASE_URL = "http://192.168.178.56:3000";
+
+    private static final String JSON_DEVICE_ID_KEY = "sc_device_id";
+    private static final String JSON_SESSION_ID_KEY = "sc_session_id";
 
     private String mRequestUrl;
-    private String mPostData;
+    private Map<String, String> mPostData;
+    private SCPreference mPreference;
+    private SCSession mSession;
 
-    public SCServerRequest(String requestPath) {
+    public SCServerRequest(String requestPath, SCSession session) {
 
         Uri requestUri = Uri.parse(REQUEST_BASE_URL).buildUpon()
                 .appendEncodedPath(requestPath)
                 .build();
         mRequestUrl = requestUri.toString();
+        mPreference = SCDeepLinking.getInstance().getPreference();
+        mSession = session;
     }
 
     public JSONObject doRequest() {
         Log.d(TAG, "doRequest " + mRequestUrl);
         try {
+            String postData = buildPostData();
+
             URL url = new URL(mRequestUrl);
 
             // Create the request to OpenWeatherMap, and open the connection
@@ -48,11 +56,11 @@ public class SCServerRequest {
             urlConnection.setRequestMethod("POST");
             urlConnection.setRequestProperty("Content-Type", "application/json");
             urlConnection.setRequestProperty("Accept", "application/json");
-            urlConnection.setFixedLengthStreamingMode(mPostData.length()); // performance optimization
+            urlConnection.setFixedLengthStreamingMode(postData.length()); // performance optimization
 
             // Send POST output.
             OutputStreamWriter out = new OutputStreamWriter(urlConnection.getOutputStream());
-            out.write(mPostData);
+            out.write(postData);
             out.flush();
             out.close();
 
@@ -104,11 +112,28 @@ public class SCServerRequest {
 
     }
 
-    public String getPostData() {
+    protected Map<String, String> getPostData() {
         return mPostData;
     }
 
-    public void setPostData(String postData) {
+    protected void setPostData(Map<String, String> postData) {
         mPostData = postData;
+    }
+
+    private String buildPostData() {
+        Map<String, String> postData = getPostData();
+        Map<String, String> commonData = getCommonPostData();
+        Map<String, String> combinedData = new HashMap<>(postData.size() + commonData.size());
+        combinedData.putAll(postData);
+        combinedData.putAll(commonData);
+        return new JSONObject(combinedData).toString();
+    }
+
+
+    protected Map<String, String> getCommonPostData() {
+        Map<String, String> commonParams = new HashMap<>(1);
+        commonParams.put(JSON_DEVICE_ID_KEY, mPreference.getDeviceId());
+        commonParams.put(JSON_SESSION_ID_KEY, ""+mSession.getId());
+        return commonParams;
     }
 }

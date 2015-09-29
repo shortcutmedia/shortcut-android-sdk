@@ -29,4 +29,9 @@
         android:text="Open with Deep Link"
         android:id="@+id/open_deep_link"/>
 
+    <TextView
+        android:id="@+id/activity_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
 </LinearLayout>

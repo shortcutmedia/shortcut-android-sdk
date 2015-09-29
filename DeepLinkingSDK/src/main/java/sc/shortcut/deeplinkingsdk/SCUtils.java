@@ -1,6 +1,7 @@
 package sc.shortcut.deeplinkingsdk;
 
 import android.net.Uri;
+import android.os.Build;
 
 /**
  * Created by franco on 21/09/15.
@@ -25,5 +26,21 @@ public class SCUtils {
             }
             return Uri.parse(uriString.replace(paramString, ""));
         }
+    }
+
+    /**
+     * Generates a pseudo-unique ID according to http://www.pocketmagic.net/android-unique-device-id/
+     *
+     * @return
+     */
+    public static String generateDeviceId() {
+        return "35" + //we make this look like a valid IMEI
+                Build.BOARD.length()%10+ Build.BRAND.length()%10 +
+                Build.CPU_ABI.length()%10 + Build.DEVICE.length()%10 +
+                Build.DISPLAY.length()%10 + Build.HOST.length()%10 +
+                Build.ID.length()%10 + Build.MANUFACTURER.length()%10 +
+                Build.MODEL.length()%10 + Build.PRODUCT.length()%10 +
+                Build.TAGS.length()%10 + Build.TYPE.length()%10 +
+                Build.USER.length()%10 ; //13 digits
     }
 }

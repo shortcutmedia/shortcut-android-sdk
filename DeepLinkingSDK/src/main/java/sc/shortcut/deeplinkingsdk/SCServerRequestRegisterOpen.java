@@ -1,13 +1,9 @@
 package sc.shortcut.deeplinkingsdk;
 
-import android.util.Log;
+import java.util.HashMap;
+import java.util.Map;
 
-import org.json.JSONException;
-import org.json.JSONObject;
 
-/**
- * Created by franco on 22/09/15.
- */
 public class SCServerRequestRegisterOpen extends SCServerRequest {
 
     private static final String LOG_TAG = SCServerRequestRegisterOpen.class.getSimpleName();
@@ -17,8 +13,8 @@ public class SCServerRequestRegisterOpen extends SCServerRequest {
     public static final String JSON_LINK_ID_KEY = "sc_link_id";
 
 
-    public SCServerRequestRegisterOpen(String linkId) {
-        super(REQUEST_PATH);
+    public SCServerRequestRegisterOpen(SCSession session) {
+        super(REQUEST_PATH, session);
 
 
         // TODO send Environment if needed whereas needed means if not already sent or if data
@@ -26,15 +22,9 @@ public class SCServerRequestRegisterOpen extends SCServerRequest {
 //        JSONObject json =  new SCEnvironment().toJson()
 
 
-        JSONObject json = new JSONObject();
-        try {
-            json.putOpt(JSON_LINK_ID_KEY, linkId);
-        } catch (JSONException e) {
-            Log.e(LOG_TAG, "Error while writing environment information to json!");
-            e.printStackTrace();
-        }
-
-        setPostData(json.toString());
+        Map<String, String> postData = new HashMap<>();
+        postData.put(JSON_LINK_ID_KEY, session.getLinkId());
+        setPostData(postData);
     }
 
 }

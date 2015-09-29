@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import sc.shortcut.deeplinkingsdk.SCExtPreference;
 
@@ -41,6 +42,9 @@ public class MainFragment extends Fragment {
                 }
             }
         });
+
+        TextView activityTextView = (TextView) rootView.findViewById(R.id.activity_id);
+        activityTextView.setText("Activity id=" + getActivity().hashCode());
 
         return rootView;
     }

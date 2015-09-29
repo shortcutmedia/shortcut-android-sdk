@@ -2,16 +2,9 @@ package sc.shortcut.deeplinkingsdk;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 
-/**
- * Created by franco on 16/09/15.
- */
 public class SCPreference {
 
-    private static final String LOG_TAG = SCPreference.class.getSimpleName();
-
-    private static final String KEY_PREF_FINGERPRINT_ID = "fingerprint_id_key";
     private static final String KEY_PREF_FIRST_LAUNCH = "is_first_launch";
     private static final String SHARED_PREFERENCE_FILE = "shortcut_deeplinking_shared_preferences";
 
@@ -25,20 +18,8 @@ public class SCPreference {
         mSharedPreferences = context.getSharedPreferences(SHARED_PREFERENCE_FILE,
                 Context.MODE_PRIVATE);
         mEditor = mSharedPreferences.edit();
-
-//        mEditor.putString("Hello", "hello");
-//        mEditor.commit();
-
-        String hello = mSharedPreferences.getString("Hello", "");
-
-        Log.d(LOG_TAG, "HELLO PREFERENCE IS " + hello);
     }
 
-
-    public String getFingerprintId() {
-//        return getString(KEY_PREF_FINGERPRINT_ID);
-        return "";
-    }
 
     public boolean isFirstLaunch() {
         return mSharedPreferences.getBoolean(KEY_PREF_FIRST_LAUNCH, true);
@@ -46,6 +27,10 @@ public class SCPreference {
 
     public void setFirstLuanch(boolean value) {
         setBool(KEY_PREF_FIRST_LAUNCH, value);
+    }
+
+    public String getDeviceId() {
+        return SCUtils.generateDeviceId();
     }
 
 

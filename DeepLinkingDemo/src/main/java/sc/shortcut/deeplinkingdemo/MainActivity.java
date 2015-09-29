@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import sc.shortcut.deeplinkingdemo.common.MainFragment;
+import sc.shortcut.deeplinkingsdk.SCDeepLinking;
 
 
 public class MainActivity extends AppCompatActivity implements MainFragment.OnFragmentInteractionListener {
@@ -21,7 +22,9 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnFr
         setContentView(R.layout.activity_main);
         Log.d(TAG, "onCreate()");
 
-        Uri deepLink = getIntent().getData();
+        Uri deepLink = SCDeepLinking.getInstance().getDeepLink();
+
+//        Uri deepLink = getIntent().getData();
         if (deepLink != null) {
             Log.d(TAG, "opened with deep link: " + deepLink);
         }
@@ -37,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnFr
 
         Intent viewIntent = new Intent();
         viewIntent.setAction(Intent.ACTION_VIEW);
-        viewIntent.setData(Uri.parse("scdemo://shortcut.sc/demo?link_id=384729"));
+        viewIntent.setData(Uri.parse("scdemo://shortcut.sc/demo?sc_link_id=384729"));
         startActivity(viewIntent);
     }
 

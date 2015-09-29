@@ -33,10 +33,22 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnFr
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        SCDeepLinking.getInstance(this).stop_new(this);
+    }
+
+    @Override
     public void onRequestStartWithDeepLinking() {
         Intent viewIntent = new Intent();
         viewIntent.setAction(Intent.ACTION_VIEW);
-        viewIntent.setData(Uri.parse("scdemo://shortcut.sc/demoapi14?link_id=384729"));
+        viewIntent.setData(Uri.parse("scdemo://shortcut.sc/demoapi14?sc_link_id=384729"));
         startActivity(viewIntent);
     }
 

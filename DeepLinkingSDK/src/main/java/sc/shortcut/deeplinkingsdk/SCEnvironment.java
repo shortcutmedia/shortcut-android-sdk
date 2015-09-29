@@ -6,9 +6,9 @@ import android.util.Log;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-/**
- * Created by franco on 21/09/15.
- */
+import java.util.HashMap;
+import java.util.Map;
+
 public class SCEnvironment {
 
     public static final String PLATFORM_KEY = "platform";
@@ -17,20 +17,18 @@ public class SCEnvironment {
     public static final String PLATFORM_BUILD_KEY = "platform_build";
     public static final String MODEL_KEY = "model";
 
-    private static final String LOG_TAG = SCEnvironment.class.getSimpleName();
+
+    public Map<String, String> toMap() {
+        Map<String, String> map = new HashMap<>();
+        map.put(PLATFORM_KEY, PLATFORM_VALUE);
+        map.put(PLATFORM_VERSION_KEY, Build.VERSION.RELEASE);
+        map.put(PLATFORM_BUILD_KEY, Build.ID);
+        map.put(MODEL_KEY, Build.MODEL);
+        return map;
+    }
 
     public JSONObject toJson() {
-        JSONObject json = new JSONObject();
-        try {
-            json.put(PLATFORM_KEY, PLATFORM_VALUE);
-            json.put(PLATFORM_VERSION_KEY, Build.VERSION.RELEASE);
-            json.put(PLATFORM_BUILD_KEY, Build.ID);
-            json.put(MODEL_KEY, Build.MODEL);
-        } catch (JSONException e) {
-            Log.e(LOG_TAG, "Error while writing environment information to json!");
-            e.printStackTrace();
-        }
-        return json;
+        return new JSONObject(toMap());
     }
 
     @Override
