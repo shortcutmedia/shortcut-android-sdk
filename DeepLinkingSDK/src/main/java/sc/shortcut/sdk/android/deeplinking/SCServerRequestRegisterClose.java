@@ -17,4 +17,10 @@ public class SCServerRequestRegisterClose extends SCServerRequest {
         postData.put(JSON_LINK_ID_KEY, session.getLinkId());
         setPostData(postData);
     }
+
+    @Override
+    protected boolean shouldSend() {
+        // no need to send request without a link_id
+        return getPostData().get(JSON_LINK_ID_KEY) != null;
+    }
 }

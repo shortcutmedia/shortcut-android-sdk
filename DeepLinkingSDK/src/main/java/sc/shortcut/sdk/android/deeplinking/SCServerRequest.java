@@ -22,7 +22,7 @@ public class SCServerRequest {
 
     private static final String TAG = SCServerRequest.class.getSimpleName();
 
-    private static final String REQUEST_BASE_URL = "http://192.168.178.56:3000";
+    private static final String REQUEST_BASE_URL = "http://172.16.42.4:3000";
 
     private static final String JSON_DEVICE_ID_KEY = "sc_device_id";
     private static final String JSON_SESSION_ID_KEY = "sc_session_id";
@@ -43,6 +43,11 @@ public class SCServerRequest {
     }
 
     public JSONObject doRequest() {
+
+        if (!shouldSend()) {
+            return null;
+        }
+
         Log.d(TAG, "doRequest " + mRequestUrl);
         try {
             String postData = buildPostData();
@@ -135,5 +140,10 @@ public class SCServerRequest {
         commonParams.put(JSON_DEVICE_ID_KEY, mPreference.getDeviceId());
         commonParams.put(JSON_SESSION_ID_KEY, ""+mSession.getId());
         return commonParams;
+    }
+
+    /** Returns false if Request is initialized with insufficient or invalid data. */
+    protected boolean shouldSend() {
+        return true;
     }
 }

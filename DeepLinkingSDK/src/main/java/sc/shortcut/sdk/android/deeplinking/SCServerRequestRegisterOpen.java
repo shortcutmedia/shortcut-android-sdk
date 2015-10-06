@@ -27,4 +27,9 @@ public class SCServerRequestRegisterOpen extends SCServerRequest {
         setPostData(postData);
     }
 
+    @Override
+    protected boolean shouldSend() {
+        // no need to send request without a link_id
+        return getPostData().get(JSON_LINK_ID_KEY) != null;
+    }
 }
