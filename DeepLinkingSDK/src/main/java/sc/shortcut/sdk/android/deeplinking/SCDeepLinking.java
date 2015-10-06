@@ -215,11 +215,11 @@ public class SCDeepLinking {
         @Override
         public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
             mDeviceRotated = savedInstanceState != null;
+            SCDeepLinking.getInstance(activity).startSession(activity, activity.getIntent());
         }
 
         @Override
         public void onActivityStarted(Activity activity) {
-            SCDeepLinking.getInstance(activity).startSession(activity, activity.getIntent());
         }
 
         @Override
@@ -232,7 +232,7 @@ public class SCDeepLinking {
 
         @Override
         public void onActivityStopped(Activity activity) {
-            SCDeepLinking.getInstance(activity).stopSession(activity);
+//            SCDeepLinking.getInstance(activity).stopSession(activity);
         }
 
         @Override

@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnFr
         setContentView(R.layout.activity_main);
 
         SCDeepLinking deepLinking = SCDeepLinking.getInstance(this);
-        deepLinking.start(getIntent());
+        deepLinking.startSession(getIntent());
 
         Uri deepLink = getIntent().getData();
 
@@ -40,8 +40,6 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnFr
     @Override
     protected void onStop() {
         super.onStop();
-
-        SCDeepLinking.getInstance(this).stop_new(this);
     }
 
     @Override
