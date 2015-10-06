@@ -215,7 +215,9 @@ public class SCDeepLinking {
         @Override
         public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
             mDeviceRotated = savedInstanceState != null;
-            SCDeepLinking.getInstance(activity).startSession(activity, activity.getIntent());
+            if (!mDeviceRotated) {
+                SCDeepLinking.getInstance(activity).startSession(activity, activity.getIntent());
+            }
         }
 
         @Override

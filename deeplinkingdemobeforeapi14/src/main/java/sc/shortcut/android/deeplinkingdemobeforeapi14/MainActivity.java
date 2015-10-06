@@ -18,11 +18,12 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnFr
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        SCDeepLinking deepLinking = SCDeepLinking.getInstance(this);
-        deepLinking.startSession(getIntent());
+        if (savedInstanceState == null) { // You wanna probably ignore device rotation
+            SCDeepLinking deepLinking = SCDeepLinking.getInstance(this);
+            deepLinking.startSession(getIntent());
+        }
 
         Uri deepLink = getIntent().getData();
-
         if (deepLink != null) {
             Log.d(TAG, "opened with deep link: " + deepLink);
         }

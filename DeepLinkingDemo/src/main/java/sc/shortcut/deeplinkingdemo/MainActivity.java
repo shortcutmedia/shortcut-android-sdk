@@ -22,9 +22,7 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnFr
         setContentView(R.layout.activity_main);
         Log.d(TAG, "onCreate()");
 
-        Uri deepLink = SCDeepLinking.getInstance().getDeepLink();
-
-//        Uri deepLink = getIntent().getData();
+        Uri deepLink = getIntent().getData();
         if (deepLink != null) {
             Log.d(TAG, "opened with deep link: " + deepLink);
         }
