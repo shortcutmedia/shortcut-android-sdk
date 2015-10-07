@@ -16,28 +16,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    productFlavors {
-        appFlavor {
-        }
-    }
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:23.0.1'
-}
-
-// Dependency hack because android-gradle does not yet support building library dependency with a specific flavor.
-// See
-//   - http://stackoverflow.com/a/27278352
-//   - https://code.google.com/p/android/issues/detail?id=52962
-//
-Map<String, Dependency> customDeps = new HashMap<String, Dependency>()
-customDeps.put("appFlavorDebugCompile", dependencies.project(path: ":DeepLinkingDemoCommon", configuration: "libCommonFlavorDebug"))
-
-configurations.all() {config ->
-    Dependency d = customDeps.get(config.name)
-    if(d != null) {
-        config.dependencies.add(d)
-    }
+    compile project(':DeepLinkingSDK')
+    compile project(':DeepLinkingDemoCommon')
 }

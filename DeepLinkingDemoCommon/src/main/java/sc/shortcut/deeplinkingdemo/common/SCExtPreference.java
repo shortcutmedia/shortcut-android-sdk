@@ -1,4 +1,4 @@
-package sc.shortcut.sdk.android.deeplinking;
+package sc.shortcut.deeplinkingdemo.common;
 
 import android.content.Context;
 
