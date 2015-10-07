@@ -3,11 +3,25 @@
 
 ### Install the SDK files
 
-If you use gradle just add `compile
+#### ~~From jcenter or mavenCentral (comming soon)~~
+~~If you use gradle just add `compile
 'sc.shortcut.sdk.android:deeplinking:0.0.1-beta'` to the dependencies
-section of your `build.gradle` file.
+section of your `build.gradle` file.~~
 
-You can also download the aar file from here.
+#### Download aar file
+
+You can also download the [latest release](https://github.com/shortcutmedia/shortcut-deeplink-sdk-android/releases) 
+as aar file and add it manually to your project.
+
+1. Download latest .AAR file
+2. In Android Studio import the .AAR file (File -> New Module -> Import
+   .JAR/.AAR).
+3. Then in your app module build.gradle at the dependency 
+```Android
+  dependencies {
+      compile project(':DeepLinkingSDK-0.1.0-beta')
+  }
+```
 
 ### Manifest configuration
 
