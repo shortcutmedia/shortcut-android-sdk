@@ -153,7 +153,7 @@ To support deep links in your App add an intent filter to the `Activity` which y
 
 In order to test the deep link support the following command should launch your app:
 ```Shell
-adb shell am start -a android.intent.action.VIEW -d "scdemo://shortcut.sc/demo?sc_link_id=3434"
+adb shell am start -a android.intent.action.VIEW -d "scdemo://shortcut.sc/demo"
 ```
 
 ## Alternative installation methods
