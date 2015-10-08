@@ -167,9 +167,9 @@ adb shell am start -a android.intent.action.VIEW -d "scdemo://shortcut.sc/demo?s
 3. Then in your app module `build.gradle` add the following dependency:
 ```Gradle
 dependencies {
-    compile project(':DeepLinkingSDK-0.1.0-beta')
+    compile project(':DeepLinkingSDK')
 }
 ```
 
 ## License
-This project is released under the MIT license. See included LICENSE.txt file for details.
+This project is released under the MIT license. See included [LICENSE.txt](DeepLinkingSDK/LICENSE.txt) file for details.
