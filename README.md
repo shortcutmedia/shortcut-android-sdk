@@ -26,7 +26,7 @@ To make use of this SDK you need an Android App that supports deep linking. The 
 
 ### Enabling the SDK
 
-There are 4 methods to enable the SDK inside your App. The preferred way is to [register our Application class](#method-1-register-our-application-class). If you need to support pre-14 API use [method 4](#method-4-manual-session-management-for-pre-14-support).
+There are 4 methods to enable the SDK inside your App. The preferred method is [Method 1: Register our Application class](#method-1-register-our-application-class). If your application needs to support pre-14 API, please use [Method 4: Manual session management](#method-4-manual-session-management-for-pre-14-support).
 
 #### Method 1: Register our Application class
 
