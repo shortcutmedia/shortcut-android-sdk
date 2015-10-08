@@ -171,3 +171,5 @@ dependencies {
 }
 ```
 
+## License
+This project is released under the MIT license. See included LICENSE.txt file for details.
