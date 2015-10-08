@@ -5,7 +5,7 @@ This SDK provides the following features:
 - Support for [deferred deep linking](https://en.wikipedia.org/wiki/Deferred_deep_linking).
 - Collection of additional statistics to build a user acquisition funnel and evaluate user activity.
 
-There is also an [iOS version of this SDK](https://github.com/shortcutmedia/shortcut-deeplink-sdk-ios).
+There is also an [iOS version](https://github.com/shortcutmedia/shortcut-deeplink-sdk-ios) and a [Windows Phone version](https://github.com/shortcutmedia/shortcut-deeplink-sdk-wp) of this SDK.
 
 ## Requirements
 
@@ -26,6 +26,8 @@ To make use of this SDK you need the following:
 - A Shortcut Link with a deep link to your App specified. Use the [Shortcut Manager](http://manager.shortcutmedia.com) to create one.
 
 ## Integration into your App
+
+### Enabling the SDK
 
 There are 4 methods to enable the SDK inside your App. The prefered way is to [register our Application class](#method-1-register-our-application-class). If you need to support pre-14 API you need to use [method #4](#method-4-manual-session-management-for-pre-14-support).
 
@@ -67,7 +69,7 @@ deep link intent.~~ _(support comming soon)_
 
 We do not recommend using this method unless you need to support pre-14. In your entry Activity add the following: 
 
-```Android
+```java
   @Override
   protected void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
@@ -80,8 +82,46 @@ We do not recommend using this method unless you need to support pre-14. In your
 
 ```
 
+### Retrieve the deep link
 
-### Add deep linking support to your App
+Usually your app should respond to a deep link with a corresponding view. You can either retrive the deep link from the incoming intent or from the `SCDeepLinking` class. 
+
+Note that you can retrieve the deep link at any time during the Activity's lifecyle, but generally you want to do so in `onCreate()` or `onStart()`. 
+
+The following example shows how to retrieve the deep link through the incoming intent. If the app was launched for the first time a possible deferred link is available through the intent:
+
+```java
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+    ...
+
+    if (Intent.ACTION_VIEW.equals(getIntent.getAction()) {
+        Uri deepLink = getIntent().getData();
+        if (deepLink != null) {
+            Log.d(TAG, "opened with deep link: " + deepLink);
+            // TODO show content for deep link
+        }
+    }
+}
+```
+
+And in the example below the deep link is retrieved from `SCDeepLinking`. 
+
+```java
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+    ...
+    
+    Uri deepLink = SCDeepLinking.getInstance().getDeepLink()
+    if (deepLink != null) {
+        Log.d(TAG, "opened with deep link: " + deepLink);
+        // TODO show content for deep link
+    }
+}
+
+```
+
+## Add deep linking support to your App
 
 Android already has support for deep links baked in. The Shortcut Deep Linking SDK extends the basic built-in functionality with deferred deep links, statistics of App interactions through deep links and short url generation (suited for sharing). 
 
@@ -117,10 +157,6 @@ adb shell am start -a android.intent.action.VIEW -d "scdemo://shortcut.sc/demo?s
 ```
 
 
-
-
-
-
 ## Alternative installation methods
 
 ### Manually add .AAR file to your project
@@ -133,42 +169,5 @@ adb shell am start -a android.intent.action.VIEW -d "scdemo://shortcut.sc/demo?s
 dependencies {
     compile project(':DeepLinkingSDK-0.1.0-beta')
 }
-```
-
-
-
-
-
-## SDK Integration
-
-### Manifest configuration
-
-#### Configure for deep linking
-
-Add an intent filter to the `Activity` you want to open up when a link
-is clicked. This is the entry point to your app. 
-
-```Android
- <activity
-      android:name=".MainActivity"
-      android:label="@string/app_name" >
-      <intent-filter>
-          <action android:name="android.intent.action.MAIN" />
-          <category
-android:name="android.intent.category.LAUNCHER" />
-      </intent-filter>
-
-      <!-- Add this intent filter below, and change the data tag
-accordingly  -->
-      <intent-filter>
-          <action android:name="android.intent.action.VIEW" />
-          <category android:name="android.intent.category.DEFAULT" />
-          <category android:name="android.intent.category.BROWSABLE" />
-          <data
-              android:host="your.host"
-              android:scheme="scdemo"
-              android:path="<optional path>"/>
-      </intent-filter>
-  </activity>
 ```
 
