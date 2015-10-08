@@ -13,7 +13,7 @@ The SDK works with Android API 10+.
 
 ## Installation 
 
-_Gradle support is coming soon! Follow instruction for manual install._ ~~If you use gradle with either repository jcenter or mavenCentral simply add `compile 'sc.shortcut.sdk.android:deeplinking:0.0.1-beta'` to the dependencies section of your `build.gradle` file.~~
+_Gradle support is coming soon! Follow instruction for manual installation._ ~~If you use gradle with either repository jcenter or mavenCentral simply add `compile 'sc.shortcut.sdk.android:deeplinking:0.0.1-beta'` to the dependencies section of your `build.gradle` file.~~
 
 Alternatively you can manually install the SDK. See section [Alternative installation methods](#alternative-installation-methods) for further instruction.
 
