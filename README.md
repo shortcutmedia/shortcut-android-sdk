@@ -5,7 +5,7 @@ This SDK provides the following features:
 - Support for [deferred deep linking](https://en.wikipedia.org/wiki/Deferred_deep_linking).
 - Collection of additional statistics to build a user acquisition funnel and evaluate user activity.
 
-There is also an [iOS version](https://github.com/shortcutmedia/shortcut-deeplink-sdk-ios) and a [Windows Phone version](https://github.com/shortcutmedia/shortcut-deeplink-sdk-wp) of this SDK.
+There is also an [iOS version](https://github.com/shortcutmedia/shortcut-deeplink-sdk-ios) of this SDK.
 
 ## Requirements
 
@@ -13,23 +13,20 @@ The SDK works with Android API 10+.
 
 ## Installation 
 
-~~If you use gradle with either repository jcenter or mavenCentral simply add `compile 'sc.shortcut.sdk.android:deeplinking:0.0.1-beta'` to the dependencies section of your `build.gradle` file.~~ _(support comming soon)_
+_Gradle support is coming soon:_ ~~If you use gradle with either repository jcenter or mavenCentral simply add `compile 'sc.shortcut.sdk.android:deeplinking:0.0.1-beta'` to the dependencies section of your `build.gradle` file.~~
 
 Alternatively you can manually install the SDK. See section [Alternative installation methods](#alternative-installation-methods) for further instruction.
 
 
 ## Prerequisites
 
-To make use of this SDK you need the following:
-
-- An Android App that supports deep linking. The section below [Add deep linking support to your App](#add-deep-linking-support-to-your-app) explains how to configure your App to support deep links. Please follow the instructions if your App does not support deep links already.
-- A Shortcut Link with a deep link to your App specified. Use the [Shortcut Manager](http://manager.shortcutmedia.com) to create one.
+To make use of this SDK you need an Android App that supports deep linking. The section below [Add deep linking support to your App](#add-deep-linking-support-to-your-app) explains how to configure your App to support deep links. Please follow the instructions first.
 
 ## Integration into your App
 
 ### Enabling the SDK
 
-There are 4 methods to enable the SDK inside your App. The prefered way is to [register our Application class](#method-1-register-our-application-class). If you need to support pre-14 API you need to use [method #4](#method-4-manual-session-management-for-pre-14-support).
+There are 4 methods to enable the SDK inside your App. The preferred way is to [register our Application class](#method-1-register-our-application-class). If you need to support pre-14 API use [method 4](#method-4-manual-session-management-for-pre-14-support).
 
 #### Method 1: Register our Application class
 
@@ -52,10 +49,12 @@ If you already have an Application class then extend it with `SCDeepLinkingApp`.
 
 #### Method 3: Initialize the SDK yourself 
 
+_We do not support this yet!_
+
 ~~If you do not want to/can extend from `SCDeepLinkingApp` for some 
 reason you can initialize the SDK yourself in your
 `Application#onCreate()` method or in the Activity receiving the 
-deep link intent.~~ _(support comming soon)_
+deep link intent.~~ 
 
 ```java
   @Override
@@ -67,7 +66,9 @@ deep link intent.~~ _(support comming soon)_
 
 #### Method 4: Manual session management for pre-14 support
 
-We do not recommend using this method unless you need to support pre-14. In your entry Activity add the following: 
+Unless you need to support API pre-14 we recommend using automatic session managment (methods 1 - 3). 
+
+In your entry Activity add the following: 
 
 ```java
   @Override
@@ -84,9 +85,9 @@ We do not recommend using this method unless you need to support pre-14. In your
 
 ### Retrieve the deep link
 
-Usually your app should respond to a deep link with a corresponding view. You can either retrive the deep link from the incoming intent or from the `SCDeepLinking` class. 
+Usually your app should respond to a deep link with a corresponding view. You can retrieve the deep link either from the incoming intent or from the `SCDeepLinking` class. 
 
-Note that you can retrieve the deep link at any time during the Activity's lifecyle, but generally you want to do so in `onCreate()` or `onStart()`. 
+Note that you can retrieve the deep link at any time during the activity's lifecyle, but generally you want to do so in `onCreate()` or `onStart()`. 
 
 The following example shows how to retrieve the deep link through the incoming intent. If the app was launched for the first time a possible deferred link is available through the intent:
 
@@ -121,11 +122,15 @@ protected void onCreate(Bundle savedInstanceState) {
 
 ```
 
+### What's next?
+
+Use the [Shortcut Manager](http://manager.shortcutmedia.com) to create a short-url and set up a deep link to your app specified.
+
 ## Add deep linking support to your App
 
-Android already has support for deep links baked in. The Shortcut Deep Linking SDK extends the basic built-in functionality with deferred deep links, statistics of App interactions through deep links and short url generation (suited for sharing). 
+Android already has support for deep links baked in. The Shortcut Deep Linking SDK extends the basic built-in functionality with deferred deep links, statistics of app interactions through deep links and short-url generation (suited for sharing). 
 
-To support deep links in your App add an intent filter to the `Activity` which you want to get opened when a short link is clicked. This is the entry point of your App. For details check out the [Android documentation](https://developers.google.com/app-indexing/android/app). The example below demonstrates how you would configure deep link support for the launcher activity in your App's `Manifest.xml`:
+In order to support deep links in your App add an intent filter to the `Activity` which you want to get opened when a short link is clicked. This is the entry point of your App. For details check out the [Android documentation](https://developers.google.com/app-indexing/android/app). The example below demonstrates how you would configure deep link support for the launcher activity in your App's `Manifest.xml`:
 
 ```XML
  <activity
