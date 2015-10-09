@@ -20,24 +20,24 @@ Alternatively you can manually install the SDK. See section [Alternative install
 
 ## Prerequisites
 
-To make use of this SDK you need an Android App that supports deep linking. The section below [Add deep linking support to your App](#add-deep-linking-support-to-your-app) explains how to configure your App to support deep links. Please follow the instructions first.
+To make use of this SDK you need an Android app that supports deep linking. The section below [Add deep linking support to your app](#add-deep-linking-support-to-your-app) explains how to configure your app to support deep links. Please follow the instructions first.
 
-## Integration into your App
+## Integration into your app
 
 ### Enabling the SDK
 
-There are 4 methods to enable the SDK inside your App. The preferred method is [Method 1: Register our Application class](#method-1-register-our-application-class). If your application needs to support pre-14 API, please use [Method 4: Manual session management](#method-4-manual-session-management-for-pre-14-support).
+There are 4 methods to enable the SDK inside your app. The preferred method is [Method 1: Register our Application class](#method-1-register-our-application-class). If your application needs to support pre-14 API, please use [Method 4: Manual session management](#method-4-manual-session-management-for-pre-14-support).
 
 #### Method 1: Register our Application class
 
-Simply register our Application class in the `Manifest.xml` configuration file:
+Simply register our application class in the `Manifest.xml` configuration file:
 
 ```xml
     <application
         android:name="sc.shortcut.sdk.android.deeplinking.SCDeepLinkingApp"
 ```
 
-That's it! Your App supports now deferred deep linking and statistics are automatically gathered. 
+That's it! Your app supports now deferred deep linking and statistics are automatically gathered. 
 
 #### Method 2: Extend from our Application class
 
@@ -126,11 +126,11 @@ protected void onCreate(Bundle savedInstanceState) {
 
 Use the [Shortcut Manager](http://manager.shortcutmedia.com) to create a short-url and set up a deep link to your app specified.
 
-## Add deep linking support to your App
+## Add deep linking support to your app
 
 Android already has support for deep links baked in. The Shortcut Deep Linking SDK extends the basic built-in functionality with deferred deep links, statistics of app interactions through deep links and short-url generation (suited for sharing). 
 
-In order to support deep links in your App add an intent filter to the `Activity` which you want to get opened when a short link is clicked. This is the entry point of your App. For details check out the [Android documentation](https://developers.google.com/app-indexing/android/app). The example below demonstrates how you would configure deep link support for the launcher activity in your App's `Manifest.xml`:
+In order to support deep links in your app add an intent filter to the `Activity` which you want to get opened when a short link is clicked. This is the entry point of your app. For details check out the [Android documentation](https://developers.google.com/app-indexing/android/app). The example below demonstrates how you would configure deep link support for the launcher activity in your app's `Manifest.xml`:
 
 ```XML
  <activity
@@ -142,7 +142,7 @@ In order to support deep links in your App add an intent filter to the `Activity
       </intent-filter>
 
       <!-- Add this intent filter below, and change the 'scheme' attribute to a unique -->
-      <!-- custom scheme that identifies your App. The host and path attribute are     -->
+      <!-- custom scheme that identifies your app. The host and path attribute are     -->
       <!-- optional.                                                                   -->
       <intent-filter>
           <action android:name="android.intent.action.VIEW" />
