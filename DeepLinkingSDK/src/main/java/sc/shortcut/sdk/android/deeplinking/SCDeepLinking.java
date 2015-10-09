@@ -1,5 +1,6 @@
 package sc.shortcut.sdk.android.deeplinking;
 
+import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.Application;
@@ -88,13 +89,16 @@ public class SCDeepLinking {
             postTask.execute(new SCServerRequestRegisterFirstOpen(session));
 
             try {
-                SCServerResponse response = postTask.get(5000, TimeUnit.MILLISECONDS);
+                if (!postTask.isCancelled()) {
+                    SCServerResponse response = postTask.get(5000, TimeUnit.MILLISECONDS);
+                    if (response != null) {
+                        Uri deferredDeepLink = response.getDeepLink();
 
-                Uri deferredDeepLink = response.getDeepLink();
-
-                if (deferredDeepLink != null) {
-                    handleDeepLink(activity, deferredDeepLink);
-                    mCurrentSession.setDeepLink(deferredDeepLink);
+                        if (deferredDeepLink != null) {
+                            handleDeepLink(activity, deferredDeepLink);
+                            mCurrentSession.setDeepLink(deferredDeepLink);
+                        }
+                    }
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -163,6 +167,20 @@ public class SCDeepLinking {
 
 
     private class PostTask extends AsyncTask<SCServerRequest, Void, SCServerResponse> {
+        @Override
+        protected void onPreExecute() {
+            // There is no point in doing any networking without a network connection.
+            // But we do not want to request too many permissions. Therefore network state
+            // is checked proactively only if the app has the necessary permissions. The SDK
+            // will not request those permissions itself. In case the network check can not
+            // be performed in advance an SCServerRequest will fail gracefully.
+            if (SCUtils.hasPermission(mCurrentActivity, Manifest.permission.ACCESS_NETWORK_STATE)) {
+                if (!SCUtils.isNetworkAvailable(mCurrentActivity)) {
+                    cancel(true);
+                }
+            }
+        }
+
         @Override
         protected SCServerResponse doInBackground(SCServerRequest... params) {
             SCServerRequest request = params[0];
