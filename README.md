@@ -176,4 +176,4 @@ dependencies {
 ```
 
 ## License
-This project is released under the MIT license. See included [LICENSE.txt](DeepLinkingSDK/LICENSE.txt) file for details.
+This project is released under the MIT license. See included [LICENSE.txt](LICENSE.txt) file for details.
