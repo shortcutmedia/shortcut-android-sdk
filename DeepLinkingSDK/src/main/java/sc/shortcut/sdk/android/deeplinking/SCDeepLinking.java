@@ -53,15 +53,6 @@ public class SCDeepLinking {
             mAutoSessionMode = true;
             setActivityLifeCycleObserver((Application) context.getApplicationContext());
         }
-
-        if (context instanceof Activity) {
-            Intent intent = ((Activity) context).getIntent();
-            mDeepLinkAtLaunch = getDeepLinkFromIntent(intent);
-
-            // TODO do not strip Deeplink id if prevented by configuration
-            mDeepLink = SCUtils.uriStripQueryParameter(mDeepLinkAtLaunch, LINK_ID_KEY);
-            intent.setData(mDeepLink);
-        }
     }
 
     public static SCDeepLinking getInstance(Context context) {
