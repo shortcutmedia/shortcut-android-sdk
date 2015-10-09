@@ -20,7 +20,7 @@ import java.util.Map;
 
 public class SCServerRequest {
 
-    private static final String TAG = SCServerRequest.class.getSimpleName();
+    private static final String LOG_TAG = SCServerRequest.class.getSimpleName();
 
     private static final String REQUEST_BASE_URL = "https://shortcut-service.shortcutmedia.com";
 
@@ -48,7 +48,7 @@ public class SCServerRequest {
             return null;
         }
 
-        Log.d(TAG, "doRequest " + mRequestUrl);
+        Log.d(LOG_TAG, "doRequest " + mRequestUrl);
         try {
             String postData = buildPostData();
 
@@ -95,7 +95,7 @@ public class SCServerRequest {
                 return null;
             }
 
-            Log.d(TAG, buffer.toString());
+            Log.d(LOG_TAG, buffer.toString());
 
             JSONObject responseJson = new JSONObject(buffer.toString());
             responseJson.get("uri");
