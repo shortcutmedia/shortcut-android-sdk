@@ -13,9 +13,24 @@ The SDK works with Android API 10+.
 
 ## Installation 
 
-_Gradle support is coming soon! Follow instruction for manual installation._ ~~If you use gradle with either repository jcenter or mavenCentral simply add `compile 'sc.shortcut.sdk.android:deeplinking:0.0.1-beta'` to the dependencies section of your `build.gradle` file.~~
+1. Download the latest .AAR file from the [releases page](https://github.com/shortcutmedia/shortcut-deeplink-sdk-android/releases) and copy it to the project's libs directory (_typically `app/libs`_). 
+2. Add a directory repository in `build.gradle` and add `compile 'sc.shortcut.sdk.android.deeplinking:sc-deeplinking:0.1.0@aar'` to the dependencies section of your application's `build.gradle` file.
 
-Alternatively you can manually install the SDK. See section [Alternative installation methods](#alternative-installation-methods) for further instruction.
+```gradle
+repositories {
+  flatDir {
+    dirs 'libs'
+  }
+}
+```
+
+```gradle
+dependencies {
+    compile 'sc.shortcut.sdk.android.deeplinking:sc-deeplinking:0.1.0@aar'
+}
+```
+
+If for some reason this installion method does not work for you, check out [alternative installation methods](#alternative-installation-methods).
 
 
 ## Prerequisites
@@ -163,7 +178,7 @@ adb shell am start -a android.intent.action.VIEW -d "scdemo://shortcut.sc/demo"
 
 ## Alternative installation methods
 
-### Manually add .AAR file to your project
+### Add .AAR file as a module
 
 1. Download the latest .AAR file from the [releases page](https://github.com/shortcutmedia/shortcut-deeplink-sdk-android/releases).
 2. In Android Studio import the .AAR file (File -> New Module -> Import
@@ -174,6 +189,10 @@ dependencies {
     compile project(':DeepLinkingSDK')
 }
 ```
+
+### Use jcenter or mavenCentral
+
+_Support for jcenter and mavenCenteral is coming soon._
 
 ## License
 This project is released under the MIT license. See included [LICENSE.txt](LICENSE.txt) file for details.
