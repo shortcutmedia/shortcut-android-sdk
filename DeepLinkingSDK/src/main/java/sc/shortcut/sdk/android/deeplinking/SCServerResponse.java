@@ -24,4 +24,8 @@ public class SCServerResponse {
     public Uri getDeepLink() {
         return Uri.parse(getDeepLinkString());
     }
+
+    public JSONObject getJson() {
+        return json;
+    }
 }

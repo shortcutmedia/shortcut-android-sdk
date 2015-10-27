@@ -1,5 +1,7 @@
 package sc.shortcut.sdk.android.deeplinking;
 
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,12 +26,12 @@ public class SCServerRequestRegisterOpen extends SCServerRequest {
 
         Map<String, String> postData = new HashMap<>();
         postData.put(JSON_LINK_ID_KEY, session.getLinkId());
-        setPostData(postData);
+        setPostData(new JSONObject(postData));
     }
 
     @Override
     protected boolean shouldSend() {
         // no need to send request without a link_id
-        return getPostData().get(JSON_LINK_ID_KEY) != null;
+        return getPostData().has(JSON_LINK_ID_KEY);
     }
 }

@@ -6,7 +6,7 @@ public class SCServerRequestRegisterFirstOpen extends SCServerRequest {
 
     public SCServerRequestRegisterFirstOpen(SCSession session) {
         super(REQUEST_PATH, session);
-        setPostData(new SCEnvironment().toMap());
+        setPostData(new SCEnvironment().toJson());
     }
 
 }

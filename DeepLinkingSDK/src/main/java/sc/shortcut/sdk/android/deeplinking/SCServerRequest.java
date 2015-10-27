@@ -15,8 +15,8 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
+import java.net.UnknownHostException;
+
 
 public class SCServerRequest {
 
@@ -26,11 +26,13 @@ public class SCServerRequest {
 
     private static final String JSON_DEVICE_ID_KEY = "sc_device_id";
     private static final String JSON_SESSION_ID_KEY = "sc_session_id";
+    private static final String JSON_AUTH_TOKEN_KEY = "token";
 
     private String mRequestUrl;
-    private Map<String, String> mPostData;
+    private JSONObject mPostData;
     private SCPreference mPreference;
     private SCSession mSession;
+    private SCConfig mConfig;
 
     public SCServerRequest(String requestPath, SCSession session) {
 
@@ -50,7 +52,7 @@ public class SCServerRequest {
 
         Log.d(LOG_TAG, "doRequest " + mRequestUrl);
         try {
-            String postData = buildPostData();
+            String postData = buildPostData().toString();
 
             URL url = new URL(mRequestUrl);
 
@@ -98,14 +100,17 @@ public class SCServerRequest {
             Log.d(LOG_TAG, buffer.toString());
 
             JSONObject responseJson = new JSONObject(buffer.toString());
-            responseJson.get("uri");
 
             return responseJson;
 
 
+        } catch (UnknownHostException ignored) {
+
         } catch (MalformedURLException e) {
+            Log.d(LOG_TAG, "MALFORMEDURLEXCEPTION");
             e.printStackTrace();
         } catch (ProtocolException e) {
+            Log.d(LOG_TAG, "PROTOCOL EXCEPTION");
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
@@ -113,37 +118,55 @@ public class SCServerRequest {
             e.printStackTrace();
         }
 
+
         return null;
 
     }
 
-    protected Map<String, String> getPostData() {
+    public JSONObject getPostData() {
         return mPostData;
     }
 
-    protected void setPostData(Map<String, String> postData) {
+    public void setPostData(JSONObject postData) {
         mPostData = postData;
     }
 
-    private String buildPostData() {
-        Map<String, String> postData = getPostData();
-        Map<String, String> commonData = getCommonPostData();
-        Map<String, String> combinedData = new HashMap<>(postData.size() + commonData.size());
-        combinedData.putAll(postData);
-        combinedData.putAll(commonData);
-        return new JSONObject(combinedData).toString();
+    private JSONObject buildPostData() {
+        JSONObject json = getCommonPostData();
+        SCUtils.appendJson(json, getPostData());
+
+        return json;
     }
 
 
-    protected Map<String, String> getCommonPostData() {
-        Map<String, String> commonParams = new HashMap<>(1);
-        commonParams.put(JSON_DEVICE_ID_KEY, mPreference.getDeviceId());
-        commonParams.put(JSON_SESSION_ID_KEY, ""+mSession.getId());
-        return commonParams;
+    protected JSONObject getCommonPostData() {
+        JSONObject json = new JSONObject();
+        try {
+            json.put(JSON_DEVICE_ID_KEY, mPreference.getDeviceId());
+            if (mSession != null) {
+                json.put(JSON_SESSION_ID_KEY, "" + mSession.getId());
+            }
+            json.put(JSON_AUTH_TOKEN_KEY, getConfig().getAuthToken());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return json;
+
     }
 
     /** Returns false if Request is initialized with insufficient or invalid data. */
     protected boolean shouldSend() {
         return true;
     }
+
+    protected SCConfig getConfig() {
+        if (mConfig == null) {
+            mConfig = SCDeepLinking.getInstance().getConfig();
+        }
+        return mConfig;
+    }
+
+    public void onRequestSucceeded(SCServerResponse response) {
+    }
+
 }

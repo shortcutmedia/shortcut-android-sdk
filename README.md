@@ -11,7 +11,7 @@ There is also an [iOS version](https://github.com/shortcutmedia/shortcut-deeplin
 
 The SDK works with Android API 10+.
 
-## Installation 
+## Installation
 
 1. Download the latest .AAR file from the [releases page](https://github.com/shortcutmedia/shortcut-deeplink-sdk-android/releases) and copy it to the project's libs directory (_typically `app/libs`_). 
 2. Add a directory repository in `build.gradle` and add `compile 'sc.shortcut.sdk.android.deeplinking:sc-deeplinking:0.1.0@aar'` to the dependencies section of your application's `build.gradle` file.
@@ -37,7 +37,10 @@ If for some reason this installion method does not work for you, check out [alte
 
 To make use of this SDK you need an Android app that supports deep linking. The section below [Add deep linking support to your app](#add-deep-linking-support-to-your-app) explains how to configure your app to support deep links. Please follow the instructions first.
 
+Furthermore you will need an **API key**. You can retrieve the key from the [Shortcut Manager](http://manager.shortcutmedia.com/users/api_keys).
+
 ## Integration into your app
+
 
 ### Enabling the SDK
 
@@ -45,14 +48,16 @@ There are 4 methods to enable the SDK inside your app. The preferred method is [
 
 #### Method 1: Register our Application class
 
-Simply register our application class in the `Manifest.xml` configuration file:
+Simply register our application class in the `Manifest.xml` configuration file and add your authentication token:
 
 ```xml
     <application
         android:name="sc.shortcut.sdk.android.deeplinking.SCDeepLinkingApp"
+        ...>
+        <meta-data android:name="sc.shortcut.sdk.deeplinking.authToken" android:value="<your auth token>" />
 ```
 
-That's it! Your app supports now deferred deep linking and statistics are automatically gathered. 
+That's it! Your app supports now deferred deep linking and statistics are gathered automatically.
 
 #### Method 2: Extend from our Application class
 
@@ -62,14 +67,22 @@ If you already have an Application class then extend it with `SCDeepLinkingApp`.
   public class YourApplication extends SCDeepLinkingApp
 ```
 
-#### Method 3: Initialize the SDK yourself 
+And add the authentication token to your `Manifest.xml`.
+
+```xml
+  <application>
+    <meta-data android:name="sc.shortcut.sdk.deeplinking.authToken" android:value="<your key>" />
+    ...
+```
+
+#### Method 3: Initialize the SDK yourself
 
 _We do not support this yet!_
 
-~~If you do not want to/can extend from `SCDeepLinkingApp` for some 
+~~If you do not want to/can extend from `SCDeepLinkingApp` for some
 reason you can initialize the SDK yourself in your
-`Application#onCreate()` method or in the Activity receiving the 
-deep link intent.~~ 
+`Application#onCreate()` method or in the Activity receiving the
+deep link intent.~~
 
 ```java
   @Override
@@ -81,16 +94,17 @@ deep link intent.~~
 
 #### Method 4: Manual session management for pre-14 support
 
-Unless you need to support API pre-14 we recommend using automatic session managment (methods 1 - 3). 
+Unless you need to support API pre-14 we recommend using automatic session managment (methods 1 - 3).
 
-In your entry Activity add the following: 
+In your entry Activity add the following:
 
 ```java
   @Override
   protected void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
-      
-      SCDeepLinking deepLinking = SCDeepLinking.getInstance(this);
+
+      SCConfig config = new SCConfig("<your auth token>");
+      SCDeepLinking deepLinking = SCDeepLinking.getInstance(config, this);    
       if (savedInstanceState == null) { // You wanna probably ignore device rotation
         deepLinking.startSession(getIntent());
       }
@@ -100,9 +114,9 @@ In your entry Activity add the following:
 
 ### Retrieve the deep link
 
-Usually your app should respond to a deep link with a corresponding view. You can retrieve the deep link either from the incoming intent or from the `SCDeepLinking` class. 
+Usually your app should respond to a deep link with a corresponding view. You can retrieve the deep link either from the incoming intent or from the `SCDeepLinking` class.
 
-Note that you can retrieve the deep link at any time during the activity's lifecyle, but generally you want to do so in `onCreate()` or `onStart()`. 
+Note that you can retrieve the deep link at any time during the activity's lifecyle, but generally you want to do so in `onCreate()` or `onStart()`.
 
 The following example shows how to retrieve the deep link through the incoming intent. If the app was launched for the first time a possible deferred link is available through the intent:
 
@@ -121,13 +135,13 @@ protected void onCreate(Bundle savedInstanceState) {
 }
 ```
 
-And in the example below the deep link is retrieved from `SCDeepLinking`. 
+And in the example below the deep link is retrieved from `SCDeepLinking`.
 
 ```java
 @Override
 protected void onCreate(Bundle savedInstanceState) {
     ...
-    
+
     Uri deepLink = SCDeepLinking.getInstance().getDeepLink()
     if (deepLink != null) {
         Log.d(TAG, "opened with deep link: " + deepLink);
@@ -137,13 +151,41 @@ protected void onCreate(Bundle savedInstanceState) {
 
 ```
 
+### Creating Short Links (short mobile deep links)
+
+Here is an example how to create a Short Link.
+```java
+// Get an SCDeepLinking instance
+SCDeepLinking deepLinking = SCDeepLinking.getInstance();
+
+// Describe the Link with help of a SCShortLinkItem
+SCShortLinkItem item = new SCShortLinkItem();
+item.setWebDeepLink(Uri.parse("https://www.pinterest.com/meissnerceramic/allein-alone"));
+item.setAndroidDeepLink(Uri.parse("pinterest://board/meissnerceramic/allein-alone"));
+item.setGooglePlayStore(Uri.parse("http://play.google.com/store/apps/details?id=com.pinterest"));
+item.setIOSDeepLink(Uri.parse("pinterest://board/meissnerceramic/allein-alone"));
+item.setAppleAppStore(Uri.parse("http://itunes.apple.com/app/id429047995?mt=8"));
+
+// Get URL asynchronously
+deepLinking.createShortLink(item, new SCShortLinkCreateListener() {
+    @Override
+    public void onLinkCreated(Uri shortLink) {
+      Log.i("SCDeepLink", "Got a short link " + shortLink.toString());
+    }
+});
+
+```
+
+
+
+
 ### What's next?
 
 Use the [Shortcut Manager](http://manager.shortcutmedia.com) to create a short-url and set up a deep link to your app specified.
 
 ## Add deep linking support to your app
 
-Android already has support for deep links baked in. The Shortcut Deep Linking SDK extends the basic built-in functionality with deferred deep links, statistics of app interactions through deep links and short-url generation (suited for sharing). 
+Android already has support for deep links baked in. The Shortcut Deep Linking SDK extends the basic built-in functionality with deferred deep links, statistics of app interactions through deep links and short-url generation (suited for sharing).
 
 In order to support deep links in your app add an intent filter to the `Activity` which you want to get opened when a short link is clicked. This is the entry point of your app. For details check out the [Android documentation](https://developers.google.com/app-indexing/android/app). The example below demonstrates how you would configure deep link support for the launcher activity in your app's `Manifest.xml`:
 

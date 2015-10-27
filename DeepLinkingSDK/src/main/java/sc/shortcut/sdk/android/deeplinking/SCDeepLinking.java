@@ -43,9 +43,11 @@ public class SCDeepLinking {
     private SCSession mCurrentSession;
     private Map<Activity, SCSession> mSessions;
     private boolean mDeviceRotated;
+    private SCConfig mConfig;
 
 
-    private SCDeepLinking(Context context) {
+    private SCDeepLinking(SCConfig config, Context context) {
+        mConfig = config;
         mContext = context;
         mPreference = new SCPreference(context.getApplicationContext());
         mSessions = new HashMap<>();
@@ -56,9 +58,9 @@ public class SCDeepLinking {
         }
     }
 
-    public static SCDeepLinking getInstance(Context context) {
+    public static SCDeepLinking getInstance(SCConfig config, Context context) {
         if (sSCDeepLinking == null) {
-            sSCDeepLinking = new SCDeepLinking(context);
+            sSCDeepLinking = new SCDeepLinking(config, context);
         }
         return sSCDeepLinking;
     }
@@ -70,6 +72,11 @@ public class SCDeepLinking {
     public void startSession(Intent intent) {
         Activity activity = (Activity) mContext;
         startSession(activity, intent);
+    }
+
+    public void createShortLink(SCShortLinkItem item, SCShortLinkCreateListener callback) {
+        PostTask postTask = new PostTask();
+        postTask.execute(new SCServerRequestCreateShortLink(mCurrentSession, item, callback));
     }
 
 
@@ -167,6 +174,8 @@ public class SCDeepLinking {
 
 
     private class PostTask extends AsyncTask<SCServerRequest, Void, SCServerResponse> {
+        private SCServerRequest mRequest;
+
         @Override
         protected void onPreExecute() {
             // There is no point in doing any networking without a network connection.
@@ -183,9 +192,14 @@ public class SCDeepLinking {
 
         @Override
         protected SCServerResponse doInBackground(SCServerRequest... params) {
-            SCServerRequest request = params[0];
-            JSONObject json = request.doRequest();
+            mRequest = params[0];
+            JSONObject json = mRequest.doRequest();
             return new SCServerResponse(json);
+        }
+
+        @Override
+        protected void onPostExecute(SCServerResponse scServerResponse) {
+            mRequest.onRequestSucceeded(scServerResponse);
         }
     }
 
@@ -225,7 +239,7 @@ public class SCDeepLinking {
         public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
             mDeviceRotated = savedInstanceState != null;
             if (!mDeviceRotated) {
-                SCDeepLinking.getInstance(activity).startSession(activity, activity.getIntent());
+                SCDeepLinking.getInstance().startSession(activity, activity.getIntent());
             }
         }
 
@@ -267,5 +281,9 @@ public class SCDeepLinking {
 
     private void saveSessionId() {
         mSessions.put(mCurrentActivity, mCurrentSession);
+    }
+
+    public SCConfig getConfig() {
+        return mConfig;
     }
 }

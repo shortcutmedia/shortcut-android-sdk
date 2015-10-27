@@ -1,0 +1,4 @@
+<resources>
+    <string name="sc_access_token_not_found">Initialization of SCDeepLinking SDK failed: Missing meta-data tag \'sc.shortcut.sdk.deeplinking.authToken\' in AndroidManifest.xml.</string>
+
+</resources>

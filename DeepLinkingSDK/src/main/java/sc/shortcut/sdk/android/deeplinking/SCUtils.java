@@ -8,6 +8,11 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Iterator;
+
 /**
  * Created by franco on 21/09/15.
  */
@@ -64,4 +69,17 @@ public class SCUtils {
     public static boolean hasPermission(Context context, String permission) {
         return (context.checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED);
     }
+
+    public static void appendJson(JSONObject json, JSONObject jsonToAppend) {
+        try {
+            Iterator<String> it = jsonToAppend.keys();
+            while (it.hasNext()) {
+                String key = it.next();
+                json.put(key, jsonToAppend.get(key));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
