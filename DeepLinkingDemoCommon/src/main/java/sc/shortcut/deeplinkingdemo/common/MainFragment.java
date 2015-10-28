@@ -9,9 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import sc.shortcut.sdk.android.deeplinking.SCDeepLinking;
+import sc.shortcut.sdk.android.deeplinking.SCShortLinkBuilder;
 import sc.shortcut.sdk.android.deeplinking.SCShortLinkCreateListener;
-import sc.shortcut.sdk.android.deeplinking.SCShortLinkItem;
 
 public class MainFragment extends Fragment {
 
@@ -50,26 +49,20 @@ public class MainFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                // Get a SCDeepLinking instance if not already done
-                SCDeepLinking deepLinking = SCDeepLinking.getInstance();
+                SCShortLinkBuilder builder = new SCShortLinkBuilder(getActivity())
+                        .addWebLink("https://www.pinterest.com/meissnerceramic/allein-alone")
+                        .addAndroidDeepLink("pinterest://board/meissnerceramic/allein-alone")
+                        .addGooglePlayStoreUrl("http://play.google.com/store/apps/details?id=com.pinterest")
+                        .addIosDeepLink("pinterest://board/meissnerceramic/allein-alone")
+                        .addAppStoreUrl("http://itunes.apple.com/app/id429047995?mt=8");
 
-                // Describe the Short
-                SCShortLinkItem item = new SCShortLinkItem();
-                item.setWebDeepLink(Uri.parse("https://www.pinterest.com/meissnerceramic/allein-alone"));
-                item.setAndroidDeepLink(Uri.parse("pinterest://board/meissnerceramic/allein-alone"));
-                item.setGooglePlayStore(Uri.parse("http://play.google.com/store/apps/details?id=com.pinterest"));
-                item.setIOSDeepLink(Uri.parse("pinterest://board/meissnerceramic/allein-alone"));
-                item.setAppleAppStore(Uri.parse("http://itunes.apple.com/app/id429047995?mt=8"));
-
-                // Request the short link
-                deepLinking.createShortLink(item, new SCShortLinkCreateListener() {
+                builder.createShortLink(new SCShortLinkCreateListener() {
                     @Override
-                    public void onLinkCreated(Uri shortLink) {
+                    public void onLinkCreated(String shortLink) {
                         TextView shortLinkTextView = (TextView) rootView.findViewById(R.id.short_link_id);
-                        shortLinkTextView.setText(shortLink.toString());
+                        shortLinkTextView.setText(shortLink);
                     }
                 });
-
             }
         });
 
@@ -78,13 +71,6 @@ public class MainFragment extends Fragment {
 
         return rootView;
     }
-
-//    // TODO: Rename method, update argument and hook method into UI event
-//    public void onButtonPressed(Uri uri) {
-//        if (mListener != null) {
-//            mListener.onFragmentInteraction(uri);
-//        }
-//    }
 
     @Override
     public void onAttach(Activity activity) {

@@ -155,29 +155,20 @@ protected void onCreate(Bundle savedInstanceState) {
 
 Here is an example how to create a Short Link.
 ```java
-// Get an SCDeepLinking instance
-SCDeepLinking deepLinking = SCDeepLinking.getInstance();
+SCShortLinkBuilder builder = new SCShortLinkBuilder(getActivity())
+        .addWebLink("https://www.pinterest.com/meissnerceramic/allein-alone")
+        .addAndroidDeepLink("pinterest://board/meissnerceramic/allein-alone")
+        .addGooglePlayStoreUrl("http://play.google.com/store/apps/details?id=com.pinterest")
+        .addIosDeepLink("pinterest://board/meissnerceramic/allein-alone")
+        .addAppStoreUrl("http://itunes.apple.com/app/id429047995?mt=8");
 
-// Describe the Link with help of a SCShortLinkItem
-SCShortLinkItem item = new SCShortLinkItem();
-item.setWebDeepLink(Uri.parse("https://www.pinterest.com/meissnerceramic/allein-alone"));
-item.setAndroidDeepLink(Uri.parse("pinterest://board/meissnerceramic/allein-alone"));
-item.setGooglePlayStore(Uri.parse("http://play.google.com/store/apps/details?id=com.pinterest"));
-item.setIOSDeepLink(Uri.parse("pinterest://board/meissnerceramic/allein-alone"));
-item.setAppleAppStore(Uri.parse("http://itunes.apple.com/app/id429047995?mt=8"));
-
-// Get URL asynchronously
-deepLinking.createShortLink(item, new SCShortLinkCreateListener() {
+builder.createShortLink(new SCShortLinkCreateListener() {
     @Override
     public void onLinkCreated(Uri shortLink) {
-      Log.i("SCDeepLink", "Got a short link " + shortLink.toString());
+        Log.i("SCDeepLink", "Got a short link " + shortLink);
     }
 });
-
 ```
-
-
-
 
 ### What's next?
 

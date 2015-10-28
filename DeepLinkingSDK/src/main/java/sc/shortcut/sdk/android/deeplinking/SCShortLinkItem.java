@@ -1,14 +1,9 @@
 package sc.shortcut.sdk.android.deeplinking;
 
-import android.net.Uri;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
-/**
- * Created by franco on 22/10/15.
- */
-public class SCShortLinkItem {
+class SCShortLinkItem {
 
     private static final String URI_KEY = "uri";
     private static final String MOBILE_DEEP_LINK_KEY = "mobile_deep_link";
@@ -18,24 +13,25 @@ public class SCShortLinkItem {
     private static final String IOS_APP_STORE_KEY = "ios_app_store_url";
 
 
-    private Uri mAndroidDeepLink;
-    private Uri mIOSDeepLink;
-    private Uri mWebDeepLink;
-    private Uri mGooglePlayStore;
-    private Uri mAppleAppStore;
+    private String mAndroidDeepLink;
+    private String mIOSDeepLink;
+    private String mWebDeepLink;
+    private String mGooglePlayStore;
+    private String mAppleAppStore;
 
     public SCShortLinkItem() {
     }
 
-    public SCShortLinkItem(Uri webDeepLink) {
+    public SCShortLinkItem(String webDeepLink) {
         this(webDeepLink, null, null, null, null);
     }
 
-    public SCShortLinkItem(Uri webDeepLink, Uri androidDeepLink, Uri googlePlayStore) {
+    public SCShortLinkItem(String webDeepLink, String androidDeepLink, String googlePlayStore) {
         this(webDeepLink, androidDeepLink, null, googlePlayStore, null);
     }
 
-    public SCShortLinkItem(Uri webDeepLink, Uri androidDeepLink, Uri IOSDeepLink, Uri googlePlayStore, Uri appleAppStore) {
+    public SCShortLinkItem(String webDeepLink, String androidDeepLink, String IOSDeepLink,
+                           String googlePlayStore, String appleAppStore) {
         mAndroidDeepLink = androidDeepLink;
         mIOSDeepLink = IOSDeepLink;
         mWebDeepLink = webDeepLink;
@@ -43,54 +39,34 @@ public class SCShortLinkItem {
         mAppleAppStore = appleAppStore;
     }
 
-    public Uri getAndroidDeepLink() {
+    public String getAndroidDeepLink() {
         return mAndroidDeepLink;
     }
 
-    public void setAndroidDeepLink(Uri androidDeepLink) {
-        mAndroidDeepLink = androidDeepLink;
-    }
-
-    public Uri getIOSDeepLink() {
+    public String getIOSDeepLink() {
         return mIOSDeepLink;
     }
 
-    public void setIOSDeepLink(Uri IOSDeepLink) {
-        mIOSDeepLink = IOSDeepLink;
-    }
-
-    public Uri getWebDeepLink() {
+    public String getWebDeepLink() {
         return mWebDeepLink;
     }
 
-    public void setWebDeepLink(Uri webDeepLink) {
-        mWebDeepLink = webDeepLink;
-    }
-
-    public Uri getGooglePlayStore() {
+    public String getGooglePlayStore() {
         return mGooglePlayStore;
     }
 
-    public void setGooglePlayStore(Uri googlePlayStore) {
-        mGooglePlayStore = googlePlayStore;
-    }
-
-    public Uri getAppleAppStore() {
+    public String getAppleAppStore() {
         return mAppleAppStore;
-    }
-
-    public void setAppleAppStore(Uri appleAppStore) {
-        mAppleAppStore = appleAppStore;
     }
 
     public JSONObject toJson() {
         JSONObject json =  new JSONObject();
         JSONObject jsonDeepLinkData = new JSONObject();
         try {
-            jsonDeepLinkData.put(ANDROID_DEEP_LINK_KEY, mAndroidDeepLink.toString());
-            jsonDeepLinkData.put(ANDROID_PLAY_STORE_KEY, mGooglePlayStore.toString());
-            jsonDeepLinkData.put(IOS_DEEP_LINK_KEY, mIOSDeepLink.toString());
-            jsonDeepLinkData.put(IOS_APP_STORE_KEY, mAppleAppStore.toString());
+            jsonDeepLinkData.put(ANDROID_DEEP_LINK_KEY, mAndroidDeepLink);
+            jsonDeepLinkData.put(ANDROID_PLAY_STORE_KEY, mGooglePlayStore);
+            jsonDeepLinkData.put(IOS_DEEP_LINK_KEY, mIOSDeepLink);
+            jsonDeepLinkData.put(IOS_APP_STORE_KEY, mAppleAppStore);
             json.put(URI_KEY, mWebDeepLink);
             json.put(MOBILE_DEEP_LINK_KEY, jsonDeepLinkData);
         } catch (JSONException e) {

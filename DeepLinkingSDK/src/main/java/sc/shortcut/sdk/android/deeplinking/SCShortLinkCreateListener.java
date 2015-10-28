@@ -1,11 +1,12 @@
 package sc.shortcut.sdk.android.deeplinking;
 
-import android.net.Uri;
-
 /**
- * Created by franco on 26/10/15.
+ * Interface class to get the through {@link SCShortLinkCreateListener} generated link back.
  */
 public interface SCShortLinkCreateListener {
-    void onLinkCreated(Uri shortLink);
+    /**
+     * Callback method is called with the from the Shortcut service retrieved short link.
+     * @param shortLink The short link
+     */
+    void onLinkCreated(String shortLink);
 }
-

@@ -17,12 +17,12 @@ import java.net.ProtocolException;
 import java.net.URL;
 import java.net.UnknownHostException;
 
+import sc.shortcut.deeplinkingsdk.BuildConfig;
+
 
 public class SCServerRequest {
 
     private static final String LOG_TAG = SCServerRequest.class.getSimpleName();
-
-    private static final String REQUEST_BASE_URL = "https://shortcut-service.shortcutmedia.com";
 
     private static final String JSON_DEVICE_ID_KEY = "sc_device_id";
     private static final String JSON_SESSION_ID_KEY = "sc_session_id";
@@ -36,7 +36,7 @@ public class SCServerRequest {
 
     public SCServerRequest(String requestPath, SCSession session) {
 
-        Uri requestUri = Uri.parse(REQUEST_BASE_URL).buildUpon()
+        Uri requestUri = Uri.parse(BuildConfig.SERVER_BASE_URL).buildUpon()
                 .appendEncodedPath(requestPath)
                 .build();
         mRequestUrl = requestUri.toString();

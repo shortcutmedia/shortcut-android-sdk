@@ -5,10 +5,7 @@ import android.net.Uri;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-/**
- * Created by franco on 22/10/15.
- */
-public class SCServerRequestCreateShortLink  extends SCServerRequest {
+class SCServerRequestCreateShortLink  extends SCServerRequest {
 
     private static final String REQUEST_PATH = "/api/v1/deep_links/create";
     private static final String JSON_DEEP_LINK_ITEM_KEY = "deep_link_item";
@@ -44,7 +41,7 @@ public class SCServerRequestCreateShortLink  extends SCServerRequest {
             String shortUrlStr = json.optString(JSON_SHORT_URL_RESPONSE_KEY);
             if (shortUrlStr != null) {
                 Uri shortLink = Uri.parse(shortUrlStr);
-                mCallback.onLinkCreated(shortLink);
+                mCallback.onLinkCreated(shortLink.toString());
             }
         }
     }
