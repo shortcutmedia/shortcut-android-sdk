@@ -82,6 +82,7 @@ public class SCDeepLinking {
 
     public void startSession(Activity activity, Intent intent) {
 
+        mDeepLink = null; // reset deep link
         mCurrentActivity = activity;
 
         mDeepLinkAtLaunch = getDeepLinkFromIntent(intent);
