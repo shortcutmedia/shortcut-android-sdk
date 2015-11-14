@@ -1,6 +1,7 @@
 package sc.shortcut.sdk.android.deeplinking;
 
 import android.net.Uri;
+import android.support.annotation.IntDef;
 import android.util.Log;
 
 import org.json.JSONException;
@@ -11,6 +12,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.net.ConnectException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
@@ -24,10 +28,20 @@ public class SCServerRequest {
 
     private static final String LOG_TAG = SCServerRequest.class.getSimpleName();
 
+    @Retention(RetentionPolicy.SOURCE)
+    @IntDef({STATUS_SUCCESS, STATUS_CONNECTION_ERROR, STATUS_REQUEST_ERROR})
+    public @interface RequestStatus {}
+
+    // Status constants
+    public static final int STATUS_SUCCESS = 0;
+    public static final int STATUS_CONNECTION_ERROR = 1;
+    public static final int STATUS_REQUEST_ERROR = 2;
+
     private static final String JSON_DEVICE_ID_KEY = "sc_device_id";
     private static final String JSON_SESSION_ID_KEY = "sc_session_id";
     private static final String JSON_AUTH_TOKEN_KEY = "token";
 
+    private @RequestStatus int mStatus;
     private String mRequestUrl;
     private JSONObject mPostData;
     private SCPreference mPreference;
@@ -45,12 +59,12 @@ public class SCServerRequest {
     }
 
     public JSONObject doRequest() {
-
         if (!shouldSend()) {
             return null;
         }
 
         Log.d(LOG_TAG, "doRequest " + mRequestUrl);
+
         try {
             String postData = buildPostData().toString();
 
@@ -100,27 +114,31 @@ public class SCServerRequest {
             Log.d(LOG_TAG, buffer.toString());
 
             JSONObject responseJson = new JSONObject(buffer.toString());
+            mStatus = STATUS_SUCCESS;
 
             return responseJson;
-
-
         } catch (UnknownHostException ignored) {
 
         } catch (MalformedURLException e) {
             Log.d(LOG_TAG, "MALFORMEDURLEXCEPTION");
+            mStatus = STATUS_REQUEST_ERROR;
             e.printStackTrace();
         } catch (ProtocolException e) {
             Log.d(LOG_TAG, "PROTOCOL EXCEPTION");
+            mStatus = STATUS_REQUEST_ERROR;
             e.printStackTrace();
-        } catch (IOException e) {
+        } catch (ConnectException e) {
+            mStatus = STATUS_CONNECTION_ERROR;
             e.printStackTrace();
-        } catch (JSONException e) {
+        } catch (IOException | JSONException e) {
+            mStatus = STATUS_REQUEST_ERROR;
             e.printStackTrace();
         }
-
-
         return null;
+    }
 
+    public @RequestStatus int getStatus() {
+        return mStatus;
     }
 
     public JSONObject getPostData() {

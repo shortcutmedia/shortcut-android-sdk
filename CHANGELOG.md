@@ -2,6 +2,7 @@
 
 * Short link builder
 * Fixes a bug where a deep link might be cached between app launches
+* More resilient on connection errors
 
 ### 0.1.0 - 2015-10-08
 

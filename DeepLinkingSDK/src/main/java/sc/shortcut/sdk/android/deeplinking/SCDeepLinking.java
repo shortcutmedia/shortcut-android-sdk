@@ -195,12 +195,19 @@ public class SCDeepLinking {
         protected SCServerResponse doInBackground(SCServerRequest... params) {
             mRequest = params[0];
             JSONObject json = mRequest.doRequest();
-            return new SCServerResponse(json);
+            if (mRequest.getStatus() == SCServerRequest.STATUS_SUCCESS) {
+                return new SCServerResponse(json);
+            } else {
+                return null;
+            }
+
         }
 
         @Override
         protected void onPostExecute(SCServerResponse scServerResponse) {
-            mRequest.onRequestSucceeded(scServerResponse);
+            if (scServerResponse != null) {
+                mRequest.onRequestSucceeded(scServerResponse);
+            }
         }
     }
 
