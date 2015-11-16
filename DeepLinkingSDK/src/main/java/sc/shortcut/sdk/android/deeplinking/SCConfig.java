@@ -73,9 +73,14 @@ public class SCConfig {
             ApplicationInfo ai = context.getPackageManager().getApplicationInfo(
                     context.getPackageName(), PackageManager.GET_META_DATA);
             Bundle bundle = ai.metaData;
+            if (bundle == null) { // no metadata
+                Log.e(SCLogger.LOG_TAG, context.getString(R.string.sc_access_token_not_found));
+                return null;
+            }
+
             String authToken = bundle.getString(AUTH_TOKEN_KEY);
             if (authToken == null) {
-                Log.w(SCLogger.LOG_TAG, context.getString(R.string.sc_access_token_not_found));
+                Log.e(SCLogger.LOG_TAG, context.getString(R.string.sc_access_token_not_found));
                 return null;
             }
 
