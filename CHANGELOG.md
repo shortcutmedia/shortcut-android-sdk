@@ -1,4 +1,9 @@
-### 0.2.0
+### 0.2.1 - 2015-11-17
+
+* Fixes a bug where a permission check prevented compatiblity with pre
+  API23
+
+### 0.2.0 - 2015-11-15
 
 * Short link builder
 * Fixes a bug where a deep link might be cached between app launches

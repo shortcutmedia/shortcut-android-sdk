@@ -14,7 +14,7 @@ The SDK works with Android API 10+.
 ## Installation
 
 1. Download the latest .AAR file from the [releases page](https://github.com/shortcutmedia/shortcut-deeplink-sdk-android/releases) and copy it to the project's libs directory (_typically `app/libs`_). 
-2. Add a directory repository in `build.gradle` and add `compile 'sc.shortcut.sdk.android.deeplinking:sc-deeplinking:0.1.0@aar'` to the dependencies section of your application's `build.gradle` file.
+2. Add a directory repository in `build.gradle` and add `compile 'sc.shortcut.sdk.android.deeplinking:sc-deeplinking:0.2.1@aar'` to the dependencies section of your application's `build.gradle` file.
 
 ```gradle
 repositories {
