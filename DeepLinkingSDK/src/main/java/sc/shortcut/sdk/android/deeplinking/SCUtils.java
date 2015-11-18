@@ -1,6 +1,5 @@
 package sc.shortcut.sdk.android.deeplinking;
 
-import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
@@ -13,9 +12,6 @@ import org.json.JSONObject;
 
 import java.util.Iterator;
 
-/**
- * Created by franco on 21/09/15.
- */
 public class SCUtils {
 
     public static Uri uriStripQueryParameter(Uri uri, String paramKey) {
@@ -40,8 +36,6 @@ public class SCUtils {
 
     /**
      * Generates a pseudo-unique ID according to http://www.pocketmagic.net/android-unique-device-id/
-     *
-     * @return
      */
     public static String generateDeviceId() {
         return "35" + //we make this look like a valid IMEI
@@ -67,7 +61,8 @@ public class SCUtils {
     }
 
     public static boolean hasPermission(Context context, String permission) {
-        return (context.checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED);
+        return (context.getPackageManager().checkPermission(permission, context.getPackageName())
+                == PackageManager.PERMISSION_GRANTED);
     }
 
     public static void appendJson(JSONObject json, JSONObject jsonToAppend) {
