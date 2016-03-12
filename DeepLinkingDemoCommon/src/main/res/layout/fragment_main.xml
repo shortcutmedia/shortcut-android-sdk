@@ -35,6 +35,12 @@
         android:text="Create Short Link"
         android:id="@+id/create_deep_link"/>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Create Short Link offline"
+        android:id="@+id/create_short_link"/>
+
     <TextView
         android:id="@+id/short_link_id"
         android:layout_width="wrap_content"

@@ -28,12 +28,12 @@ public class SCConfig {
     private static final String AUTH_TOKEN_KEY = "sc.shortcut.sdk.deeplinking.authToken";
     private static final String ENVIRONMENT_KEY = "sc.shortcut.sdk.deeplinking.environment";
     private static final String LOG_LEVEL_KEY = "sc.shortcut.sdk.deeplinking.logLevel";
+    private static final String SHORT_LINK_BASE_URL_KEY = "sc.shortcut.sdk.deeplinking.ShortLinkUrlBase";
 
     private String mAuthToken;
+    private String mBaseUrl;
     private @Environment int mEnvironment = ENVIRONMENT_PRODUCTION;
     private @SCLogger.LogLevel int mLogLevel = SCLogger.LOG_LEVEL_INFO;
-
-
 
     public SCConfig(String authToken) {
         mAuthToken = authToken;
@@ -84,7 +84,11 @@ public class SCConfig {
                 return null;
             }
 
+
             SCConfig config = new SCConfig(authToken);
+
+            String baseUrl = bundle.getString(SHORT_LINK_BASE_URL_KEY);
+            config.setBaseUrl(baseUrl);
 
             String environment = bundle.getString(ENVIRONMENT_KEY);
             if (environment != null) {
@@ -109,5 +113,13 @@ public class SCConfig {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public String getBaseUrl() {
+        return mBaseUrl;
+    }
+
+    public void setBaseUrl(String baseUrl) {
+        mBaseUrl = baseUrl;
     }
 }

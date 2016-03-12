@@ -11,6 +11,7 @@ class SCShortLinkItem {
     private static final String ANDROID_PLAY_STORE_KEY = "android_app_store_url";
     private static final String IOS_DEEP_LINK_KEY = "ios_in_app_url";
     private static final String IOS_APP_STORE_KEY = "ios_app_store_url";
+    private static final String SHORT_LINK_KEY = "short_link";
 
 
     private String mAndroidDeepLink;
@@ -18,6 +19,7 @@ class SCShortLinkItem {
     private String mWebDeepLink;
     private String mGooglePlayStore;
     private String mAppleAppStore;
+    private String mShortLink; // offline generated
 
     public SCShortLinkItem() {
     }
@@ -32,11 +34,19 @@ class SCShortLinkItem {
 
     public SCShortLinkItem(String webDeepLink, String androidDeepLink, String IOSDeepLink,
                            String googlePlayStore, String appleAppStore) {
+
+        this(webDeepLink, androidDeepLink, IOSDeepLink, googlePlayStore, appleAppStore, null);
+    }
+
+
+    public SCShortLinkItem(String webDeepLink, String androidDeepLink, String IOSDeepLink,
+                           String googlePlayStore, String appleAppStore, String shortLink) {
         mAndroidDeepLink = androidDeepLink;
         mIOSDeepLink = IOSDeepLink;
         mWebDeepLink = webDeepLink;
         mGooglePlayStore = googlePlayStore;
         mAppleAppStore = appleAppStore;
+        mShortLink = shortLink;
     }
 
     public String getAndroidDeepLink() {
@@ -59,6 +69,14 @@ class SCShortLinkItem {
         return mAppleAppStore;
     }
 
+    public String getShortLink() {
+        return mShortLink;
+    }
+
+    void setShortLink(String shortLink) {
+        mShortLink = shortLink;
+    }
+
     public JSONObject toJson() {
         JSONObject json =  new JSONObject();
         JSONObject jsonDeepLinkData = new JSONObject();
@@ -68,6 +86,7 @@ class SCShortLinkItem {
             jsonDeepLinkData.put(IOS_DEEP_LINK_KEY, mIOSDeepLink);
             jsonDeepLinkData.put(IOS_APP_STORE_KEY, mAppleAppStore);
             json.put(URI_KEY, mWebDeepLink);
+            json.put(SHORT_LINK_KEY, mShortLink);
             json.put(MOBILE_DEEP_LINK_KEY, jsonDeepLinkData);
         } catch (JSONException e) {
             e.printStackTrace();

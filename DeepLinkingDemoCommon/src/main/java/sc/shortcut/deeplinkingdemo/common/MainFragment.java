@@ -66,6 +66,23 @@ public class MainFragment extends Fragment {
             }
         });
 
+        rootView.findViewById(R.id.create_short_link).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SCShortLinkBuilder builder = new SCShortLinkBuilder(getActivity())
+                        .addWebLink("https://www.pinterest.com/meissnerceramic/allein-alone")
+                        .addAndroidDeepLink("pinterest://board/meissnerceramic/allein-alone")
+                        .addGooglePlayStoreUrl("http://play.google.com/store/apps/details?id=com.pinterest")
+                        .addIosDeepLink("pinterest://board/meissnerceramic/allein-alone")
+                        .addAppStoreUrl("http://itunes.apple.com/app/id429047995?mt=8");
+
+                String shortLink = builder.createOfflineShortLink();
+                TextView shortLinkTextView = (TextView) rootView.findViewById(R.id.short_link_id);
+                shortLinkTextView.setText(shortLink);
+
+            }
+        });
+
         TextView activityTextView = (TextView) rootView.findViewById(R.id.activity_id);
         activityTextView.setText("Activity id=" + getActivity().hashCode());
 

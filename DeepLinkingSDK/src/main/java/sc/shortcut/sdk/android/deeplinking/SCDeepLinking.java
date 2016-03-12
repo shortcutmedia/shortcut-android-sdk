@@ -80,6 +80,16 @@ public class SCDeepLinking {
     }
 
 
+    public String createOfflineShortLink(SCShortLinkItem item) {
+        Log.d(LOG_TAG, "creating short link offline");
+
+        SCShortUrlGenerator generator = new SCShortUrlGenerator(mConfig);
+        String shortLink = generator.generate();
+        item.setShortLink(shortLink);
+        createShortLink(item, null);
+        return shortLink;
+    }
+
     public void startSession(Activity activity, Intent intent) {
 
         mDeepLink = null; // reset deep link
