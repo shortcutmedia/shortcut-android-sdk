@@ -33,6 +33,13 @@ public class SCShortcutUrlGeneratorTest {
     }
 
     @Test
+    public void generateIdTestWithCustomeDomain() {
+        mConfig.setBaseUrl("http://short.li");
+        SCShortUrlGenerator shortUrlGenerator = new SCShortUrlGenerator(mConfig);
+        assertThat(shortUrlGenerator.generateId().length(), is(7));
+    }
+
+    @Test
     public void rotateTest() {
         String base = "0123456789abcdef";
         SCShortUrlEncoder encoder = new SCShortUrlEncoder(base);

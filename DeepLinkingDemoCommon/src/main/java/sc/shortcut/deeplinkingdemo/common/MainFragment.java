@@ -1,7 +1,6 @@
 package sc.shortcut.deeplinkingdemo.common;
 
 import android.app.Activity;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -9,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import sc.shortcut.sdk.android.deeplinking.SCConfig;
+import sc.shortcut.sdk.android.deeplinking.SCDeepLinking;
 import sc.shortcut.sdk.android.deeplinking.SCShortLinkBuilder;
 import sc.shortcut.sdk.android.deeplinking.SCShortLinkCreateListener;
 
@@ -80,6 +81,29 @@ public class MainFragment extends Fragment {
                 TextView shortLinkTextView = (TextView) rootView.findViewById(R.id.short_link_id);
                 shortLinkTextView.setText(shortLink);
 
+            }
+        });
+
+        rootView.findViewById(R.id.create_short_link_custom_url).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                // set up base url first
+                SCConfig config = SCDeepLinking.getInstance().getConfig();
+                config.setBaseUrl("http://short.ln");
+
+                SCShortLinkBuilder builder = new SCShortLinkBuilder(getActivity())
+                        .addWebLink("https://www.pinterest.com/meissnerceramic/allein-alone")
+                        .addAndroidDeepLink("pinterest://board/meissnerceramic/allein-alone")
+                        .addGooglePlayStoreUrl("http://play.google.com/store/apps/details?id=com.pinterest")
+                        .addIosDeepLink("pinterest://board/meissnerceramic/allein-alone")
+                        .addAppStoreUrl("http://itunes.apple.com/app/id429047995?mt=8");
+                String shortLink = builder.createOfflineShortLink();
+                TextView shortLinkTextView = (TextView) rootView.findViewById(R.id.short_link_id);
+                shortLinkTextView.setText(shortLink);
+
+                // reset baes url again
+                config.setBaseUrl(null);
             }
         });
 

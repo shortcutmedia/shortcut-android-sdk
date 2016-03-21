@@ -39,7 +39,15 @@ class SCShortUrlGenerator {
 
     String generateId() {
         int random = generateRandom();
-        return rotate(getKeyPart(), random) +
+        String keyPart = null;
+
+        if (isCustomeDomain()) {
+            keyPart = "";
+        } else {
+            keyPart = rotate(getKeyPart(), random);
+        }
+
+        return keyPart +
                 SCStringUtils.rjust( mEncoder.encode(random), '0', RANDOM_LENGTH ) +
                 encodedTime();
     }
@@ -82,6 +90,10 @@ class SCShortUrlGenerator {
 
     String getKeyPart() {
         return mConfig.getAuthToken().substring(0, 3);
+    }
+
+    boolean isCustomeDomain() {
+        return getBaseUrl() != DEFAULT_BASE_URL;
     }
 
     private String getBaseUrl() {
