@@ -90,7 +90,7 @@ public class MainFragment extends Fragment {
 
                 // set up base url first
                 SCConfig config = SCDeepLinking.getInstance().getConfig();
-                config.setBaseUrl("http://short.ln");
+                config.setBaseUrl("http://short.com");
 
                 SCShortLinkBuilder builder = new SCShortLinkBuilder(getActivity())
                         .addWebLink("https://www.pinterest.com/meissnerceramic/allein-alone")
@@ -133,7 +133,6 @@ public class MainFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         void onRequestStartWithDeepLinking();
         void onRequestAppRestart();
-
     }
 
 }
