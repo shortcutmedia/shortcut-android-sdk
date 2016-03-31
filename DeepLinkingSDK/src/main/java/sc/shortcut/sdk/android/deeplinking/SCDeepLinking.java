@@ -83,11 +83,15 @@ public class SCDeepLinking {
     public String createOfflineShortLink(SCShortLinkItem item) {
         Log.d(LOG_TAG, "creating short link offline");
 
-        SCShortUrlGenerator generator = new SCShortUrlGenerator(mConfig);
-        String shortLink = generator.generate();
-        item.setShortLink(shortLink);
-        createShortLink(item, null);
-        return shortLink;
+        if (SCUtils.isNetworkAvailable(mContext)) {
+            SCShortUrlGenerator generator = new SCShortUrlGenerator(mConfig);
+            String shortLink = generator.generate();
+            item.setShortLink(shortLink);
+            createShortLink(item, null);
+            return shortLink;
+        } else {
+            return null;
+        }
     }
 
     public void startSession(Activity activity, Intent intent) {
