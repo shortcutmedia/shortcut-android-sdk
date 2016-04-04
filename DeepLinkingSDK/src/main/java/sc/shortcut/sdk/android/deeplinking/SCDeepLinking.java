@@ -75,7 +75,7 @@ public class SCDeepLinking {
     }
 
     public void createShortLink(SCShortLinkItem item, SCShortLinkCreateListener callback) {
-        PostTask postTask = new PostTask();
+        PostTask postTask = new PostTask(mContext);
         postTask.execute(new SCServerRequestCreateShortLink(mCurrentSession, item, callback));
     }
 
@@ -107,7 +107,7 @@ public class SCDeepLinking {
             SCSession session = mSessions.get(activity);
 
             // check for deferred deep link
-            PostTask postTask = new PostTask();
+            PostTask postTask = new PostTask(mContext);
             postTask.execute(new SCServerRequestRegisterFirstOpen(session));
 
             try {
@@ -145,7 +145,7 @@ public class SCDeepLinking {
             if (session != null) {
                 session.open();
                 handleDeepLink(activity, mDeepLinkAtLaunch);
-                PostTask postTask = new PostTask();
+                PostTask postTask = new PostTask(mContext);
                 postTask.execute(new SCServerRequestRegisterOpen(session));
             }
         }
@@ -160,7 +160,7 @@ public class SCDeepLinking {
         SCSession session = mSessions.get(activity);
         if (session != null && !session.isClosed()) {
             session.close();
-            PostTask postTask = new PostTask();
+            PostTask postTask = new PostTask(mContext);
             postTask.execute(new SCServerRequestRegisterClose(session));
         }
     }
@@ -187,9 +187,19 @@ public class SCDeepLinking {
         activity.getIntent().setData(mDeepLink);
     }
 
+    public void sendAppOpenEvent() {
+        PostTask postTask = new PostTask(mContext);
+        postTask.execute(new SCServerRequestAppOpen());
+    }
+
 
     private class PostTask extends AsyncTask<SCServerRequest, Void, SCServerResponse> {
         private SCServerRequest mRequest;
+        private Context mContext;
+
+        public PostTask(Context context) {
+            mContext = context;
+        }
 
         @Override
         protected void onPreExecute() {
@@ -198,8 +208,8 @@ public class SCDeepLinking {
             // is checked proactively only if the app has the necessary permissions. The SDK
             // will not request those permissions itself. In case the network check can not
             // be performed in advance an SCServerRequest will fail gracefully.
-            if (SCUtils.hasPermission(mCurrentActivity, Manifest.permission.ACCESS_NETWORK_STATE)) {
-                if (!SCUtils.isNetworkAvailable(mCurrentActivity)) {
+            if (SCUtils.hasPermission(mContext, Manifest.permission.ACCESS_NETWORK_STATE)) {
+                if (!SCUtils.isNetworkAvailable(mContext)) {
                     cancel(true);
                 }
             }

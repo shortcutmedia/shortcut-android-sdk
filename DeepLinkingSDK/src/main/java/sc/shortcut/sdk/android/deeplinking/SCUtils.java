@@ -66,6 +66,8 @@ public class SCUtils {
     }
 
     public static void appendJson(JSONObject json, JSONObject jsonToAppend) {
+        if (jsonToAppend == null) return;
+
         try {
             Iterator<String> it = jsonToAppend.keys();
             while (it.hasNext()) {

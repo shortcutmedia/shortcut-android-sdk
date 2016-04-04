@@ -3,7 +3,7 @@ package sc.shortcut.sdk.android.deeplinking;
 import android.app.Application;
 
 /**
- * Created by franco on 16/09/15.
+ * Application class for Shortcut projects.
  */
 public class SCDeepLinkingApp extends Application {
 
@@ -13,7 +13,8 @@ public class SCDeepLinkingApp extends Application {
 
         SCConfig config = SCConfig.initFromManifest(this);
         if (config != null) {
-            SCDeepLinking.getInstance(config, this);
+            SCDeepLinking shortcut = SCDeepLinking.getInstance(config, this);
+            shortcut.sendAppOpenEvent();
         }
     }
 }
