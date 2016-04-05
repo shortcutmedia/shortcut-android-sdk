@@ -11,7 +11,7 @@ import java.lang.annotation.RetentionPolicy;
  */
 public class SCLogger {
 
-    public static final String LOG_TAG = SCDeepLinking.class.getSimpleName();
+    public static final String LOG_TAG = Shortcut.class.getSimpleName();
 
     @Retention(RetentionPolicy.SOURCE)
     @IntDef({LOG_LEVEL_VERBOSE, LOG_LEVEL_DEBUG, LOG_LEVEL_INFO, LOG_LEVEL_WARN, LOG_LEVEL_ERROR})

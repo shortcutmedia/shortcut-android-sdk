@@ -9,7 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import sc.shortcut.deeplinkingdemo.common.MainFragment;
-import sc.shortcut.sdk.android.deeplinking.SCDeepLinking;
+import sc.shortcut.sdk.android.deeplinking.Shortcut;
 
 
 public class MainActivity extends AppCompatActivity implements MainFragment.OnFragmentInteractionListener {
@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnFr
         setContentView(R.layout.activity_main);
         Log.d(TAG, "onCreate()");
 
-        Uri deepLinkFromSDK = SCDeepLinking.getInstance().getDeepLink();
+        Uri deepLinkFromSDK = Shortcut.getInstance().getDeepLink();
         if (deepLinkFromSDK != null) {
             Log.d(TAG, "opened with deep link (getDeepLink()): " + deepLinkFromSDK);
         }

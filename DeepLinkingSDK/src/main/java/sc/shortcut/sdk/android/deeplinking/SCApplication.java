@@ -13,7 +13,7 @@ public class SCApplication extends Application {
 
         SCConfig config = SCConfig.initFromManifest(this);
         if (config != null) {
-            SCDeepLinking shortcut = SCDeepLinking.getInstance(config, this);
+            Shortcut shortcut = Shortcut.getInstance(config, this);
             shortcut.sendAppOpenEvent();
         }
     }

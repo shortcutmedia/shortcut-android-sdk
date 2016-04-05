@@ -8,7 +8,7 @@ import android.util.Log;
 
 import sc.shortcut.deeplinkingdemo.common.MainFragment;
 import sc.shortcut.sdk.android.deeplinking.SCConfig;
-import sc.shortcut.sdk.android.deeplinking.SCDeepLinking;
+import sc.shortcut.sdk.android.deeplinking.Shortcut;
 
 public class MainActivity extends AppCompatActivity implements MainFragment.OnFragmentInteractionListener {
 
@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnFr
 
         if (savedInstanceState == null) { // You wanna probably ignore device rotation
             SCConfig config = new SCConfig("1s5HTnfCDdgPy61yaDZL");
-            SCDeepLinking deepLinking = SCDeepLinking.getInstance(config, this);
+            Shortcut deepLinking = Shortcut.getInstance(config, this);
             deepLinking.startSession(getIntent());
         }
 

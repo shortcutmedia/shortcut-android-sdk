@@ -105,9 +105,9 @@ In your entry Activity add the following:
       super.onCreate(savedInstanceState);
 
       SCConfig config = new SCConfig("<your auth token>");
-      SCDeepLinking deepLinking = SCDeepLinking.getInstance(config, this);    
+      Shortcut shortcut = Shortcut.getInstance(config, this);    
       if (savedInstanceState == null) { // You wanna probably ignore device rotation
-        deepLinking.startSession(getIntent());
+        shortcut.startSession(getIntent());
       }
   }
 
@@ -115,7 +115,7 @@ In your entry Activity add the following:
 
 ### Retrieve the deep link
 
-Usually your app should respond to a deep link with a corresponding view. You can retrieve the deep link either from the incoming intent or from the `SCDeepLinking` class.
+Usually your app should respond to a deep link with a corresponding view. You can retrieve the deep link either from the incoming intent or from the `Shortcut` class.
 
 Note that you can retrieve the deep link at any time during the activity's lifecyle, but generally you want to do so in `onCreate()` or `onStart()`.
 
@@ -136,14 +136,14 @@ protected void onCreate(Bundle savedInstanceState) {
 }
 ```
 
-And in the example below the deep link is retrieved from `SCDeepLinking`.
+And in the example below the deep link is retrieved from `Shortcut`.
 
 ```java
 @Override
 protected void onCreate(Bundle savedInstanceState) {
     ...
 
-    Uri deepLink = SCDeepLinking.getInstance().getDeepLink()
+    Uri deepLink = Shortcut.getInstance().getDeepLink()
     if (deepLink != null) {
         Log.d(TAG, "opened with deep link: " + deepLink);
         // TODO show content for deep link
@@ -166,7 +166,7 @@ SCShortLinkBuilder builder = new SCShortLinkBuilder(getActivity())
 builder.createShortLink(new SCShortLinkCreateListener() {
     @Override
     public void onLinkCreated(Uri shortLink) {
-        Log.i("SCDeepLink", "Got a short link " + shortLink);
+        Log.i("Shortcut", "Got a short link " + shortLink);
     }
 });
 ```

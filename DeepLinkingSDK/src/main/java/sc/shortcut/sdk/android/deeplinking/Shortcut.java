@@ -23,13 +23,13 @@ import java.util.concurrent.TimeoutException;
 /**
  * Main Singleton class.
  */
-public class SCDeepLinking {
+public class Shortcut {
 
-    private static final String LOG_TAG = SCDeepLinking.class.getSimpleName();
+    private static final String LOG_TAG = Shortcut.class.getSimpleName();
 
     private static final String LINK_ID_KEY= "sc_link_id";
 
-    private static SCDeepLinking sSCDeepLinking;
+    private static Shortcut sSCDeepLinking;
     private Context mContext;
     private SCActivityLifecyleObserver mActivityLifecyleObserver;
     private boolean mActivityLifecyleCallbackRegistred;
@@ -46,7 +46,7 @@ public class SCDeepLinking {
     private SCConfig mConfig;
 
 
-    private SCDeepLinking(SCConfig config, Context context) {
+    private Shortcut(SCConfig config, Context context) {
         mConfig = config;
         mContext = context;
         mPreference = new SCPreference(context.getApplicationContext());
@@ -58,14 +58,14 @@ public class SCDeepLinking {
         }
     }
 
-    public static SCDeepLinking getInstance(SCConfig config, Context context) {
+    public static Shortcut getInstance(SCConfig config, Context context) {
         if (sSCDeepLinking == null) {
-            sSCDeepLinking = new SCDeepLinking(config, context);
+            sSCDeepLinking = new Shortcut(config, context);
         }
         return sSCDeepLinking;
     }
 
-    public static SCDeepLinking getInstance() {
+    public static Shortcut getInstance() {
         return sSCDeepLinking;
     }
 
@@ -276,7 +276,7 @@ public class SCDeepLinking {
         public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
             mDeviceRotated = savedInstanceState != null;
             if (!mDeviceRotated) {
-                SCDeepLinking.getInstance().startSession(activity, activity.getIntent());
+                Shortcut.getInstance().startSession(activity, activity.getIntent());
             }
         }
 

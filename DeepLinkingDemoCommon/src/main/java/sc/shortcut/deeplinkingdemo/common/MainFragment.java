@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import sc.shortcut.sdk.android.deeplinking.SCConfig;
-import sc.shortcut.sdk.android.deeplinking.SCDeepLinking;
+import sc.shortcut.sdk.android.deeplinking.Shortcut;
 import sc.shortcut.sdk.android.deeplinking.SCShortLinkBuilder;
 import sc.shortcut.sdk.android.deeplinking.SCShortLinkCreateListener;
 
@@ -89,7 +89,7 @@ public class MainFragment extends Fragment {
             public void onClick(View v) {
 
                 // set up base url first
-                SCConfig config = SCDeepLinking.getInstance().getConfig();
+                SCConfig config = Shortcut.getInstance().getConfig();
                 config.setBaseUrl("http://short.com");
 
                 SCShortLinkBuilder builder = new SCShortLinkBuilder(getActivity())

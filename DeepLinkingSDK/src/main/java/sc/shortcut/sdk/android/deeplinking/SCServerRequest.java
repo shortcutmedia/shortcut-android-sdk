@@ -54,7 +54,7 @@ class SCServerRequest {
                 .appendEncodedPath(requestPath)
                 .build();
         mRequestUrl = requestUri.toString();
-        mPreference = SCDeepLinking.getInstance().getPreference();
+        mPreference = Shortcut.getInstance().getPreference();
         mSession = session;
     }
 
@@ -179,7 +179,7 @@ class SCServerRequest {
 
     protected SCConfig getConfig() {
         if (mConfig == null) {
-            mConfig = SCDeepLinking.getInstance().getConfig();
+            mConfig = Shortcut.getInstance().getConfig();
         }
         return mConfig;
     }

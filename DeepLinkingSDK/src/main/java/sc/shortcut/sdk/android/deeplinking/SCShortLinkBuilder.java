@@ -51,12 +51,12 @@ public class SCShortLinkBuilder {
     }
 
     public void createShortLink(SCShortLinkCreateListener callback) {
-        SCDeepLinking deepLinking = SCDeepLinking.getInstance();
+        Shortcut deepLinking = Shortcut.getInstance();
         deepLinking.createShortLink(getItem(), callback);
     }
 
     public String createOfflineShortLink() {
-        SCDeepLinking deepLinking = SCDeepLinking.getInstance();
+        Shortcut deepLinking = Shortcut.getInstance();
         return deepLinking.createOfflineShortLink(getItem());
     }
 
