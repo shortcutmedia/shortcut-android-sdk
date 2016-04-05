@@ -21,25 +21,25 @@ class SCShortLinkItem {
     private String mAppleAppStore;
     private String mShortLink; // offline generated
 
-    public SCShortLinkItem() {
+    SCShortLinkItem() {
     }
 
-    public SCShortLinkItem(String webDeepLink) {
+    SCShortLinkItem(String webDeepLink) {
         this(webDeepLink, null, null, null, null);
     }
 
-    public SCShortLinkItem(String webDeepLink, String androidDeepLink, String googlePlayStore) {
+    SCShortLinkItem(String webDeepLink, String androidDeepLink, String googlePlayStore) {
         this(webDeepLink, androidDeepLink, null, googlePlayStore, null);
     }
 
-    public SCShortLinkItem(String webDeepLink, String androidDeepLink, String IOSDeepLink,
+    SCShortLinkItem(String webDeepLink, String androidDeepLink, String IOSDeepLink,
                            String googlePlayStore, String appleAppStore) {
 
         this(webDeepLink, androidDeepLink, IOSDeepLink, googlePlayStore, appleAppStore, null);
     }
 
 
-    public SCShortLinkItem(String webDeepLink, String androidDeepLink, String IOSDeepLink,
+    SCShortLinkItem(String webDeepLink, String androidDeepLink, String IOSDeepLink,
                            String googlePlayStore, String appleAppStore, String shortLink) {
         mAndroidDeepLink = androidDeepLink;
         mIOSDeepLink = IOSDeepLink;
@@ -49,27 +49,27 @@ class SCShortLinkItem {
         mShortLink = shortLink;
     }
 
-    public String getAndroidDeepLink() {
+    String getAndroidDeepLink() {
         return mAndroidDeepLink;
     }
 
-    public String getIOSDeepLink() {
+    String getIOSDeepLink() {
         return mIOSDeepLink;
     }
 
-    public String getWebDeepLink() {
+    String getWebDeepLink() {
         return mWebDeepLink;
     }
 
-    public String getGooglePlayStore() {
+    String getGooglePlayStore() {
         return mGooglePlayStore;
     }
 
-    public String getAppleAppStore() {
+    String getAppleAppStore() {
         return mAppleAppStore;
     }
 
-    public String getShortLink() {
+    String getShortLink() {
         return mShortLink;
     }
 
@@ -77,7 +77,7 @@ class SCShortLinkItem {
         mShortLink = shortLink;
     }
 
-    public JSONObject toJson() {
+    JSONObject toJson() {
         JSONObject json =  new JSONObject();
         JSONObject jsonDeepLinkData = new JSONObject();
         try {

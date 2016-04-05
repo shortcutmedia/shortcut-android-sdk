@@ -13,7 +13,7 @@ class SCServerRequestCreateShortLink  extends SCServerRequest {
 
     private SCShortLinkCreateListener mCallback;
 
-    public SCServerRequestCreateShortLink(SCSession session, SCShortLinkItem item) {
+    SCServerRequestCreateShortLink(SCSession session, SCShortLinkItem item) {
         super(REQUEST_PATH, session);
 
         JSONObject json = new JSONObject();
@@ -25,17 +25,17 @@ class SCServerRequestCreateShortLink  extends SCServerRequest {
         setPostData(json);
     }
 
-    public SCServerRequestCreateShortLink(SCSession session, SCShortLinkItem item, SCShortLinkCreateListener callback) {
+    SCServerRequestCreateShortLink(SCSession session, SCShortLinkItem item, SCShortLinkCreateListener callback) {
         this(session, item);
         mCallback = callback;
     }
 
-    public void setOnShortLinkCreateListener(SCShortLinkCreateListener callback) {
+    void setOnShortLinkCreateListener(SCShortLinkCreateListener callback) {
         mCallback = callback;
     }
 
     @Override
-    public void onRequestSucceeded(SCServerResponse response) {
+    void onRequestSucceeded(SCServerResponse response) {
         if (mCallback != null) {
             JSONObject json = response.getJson();
             String shortUrlStr = json.optString(JSON_SHORT_URL_RESPONSE_KEY);

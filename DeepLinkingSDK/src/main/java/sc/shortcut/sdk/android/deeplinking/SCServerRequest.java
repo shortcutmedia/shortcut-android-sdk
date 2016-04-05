@@ -24,18 +24,18 @@ import java.net.UnknownHostException;
 import sc.shortcut.deeplinkingsdk.BuildConfig;
 
 
-public class SCServerRequest {
+class SCServerRequest {
 
     private static final String LOG_TAG = SCServerRequest.class.getSimpleName();
 
     @Retention(RetentionPolicy.SOURCE)
     @IntDef({STATUS_SUCCESS, STATUS_CONNECTION_ERROR, STATUS_REQUEST_ERROR})
-    public @interface RequestStatus {}
+    @interface RequestStatus {}
 
     // Status constants
-    public static final int STATUS_SUCCESS = 0;
-    public static final int STATUS_CONNECTION_ERROR = 1;
-    public static final int STATUS_REQUEST_ERROR = 2;
+    static final int STATUS_SUCCESS = 0;
+    static final int STATUS_CONNECTION_ERROR = 1;
+    static final int STATUS_REQUEST_ERROR = 2;
 
     private static final String JSON_DEVICE_ID_KEY = "sc_device_id";
     private static final String JSON_SESSION_ID_KEY = "sc_session_id";
@@ -48,7 +48,7 @@ public class SCServerRequest {
     private SCSession mSession;
     private SCConfig mConfig;
 
-    public SCServerRequest(String requestPath, SCSession session) {
+    SCServerRequest(String requestPath, SCSession session) {
 
         Uri requestUri = Uri.parse(BuildConfig.SERVER_BASE_URL).buildUpon()
                 .appendEncodedPath(requestPath)
@@ -58,7 +58,7 @@ public class SCServerRequest {
         mSession = session;
     }
 
-    public JSONObject doRequest() {
+    JSONObject doRequest() {
         if (!shouldSend()) {
             return null;
         }
@@ -137,15 +137,15 @@ public class SCServerRequest {
         return null;
     }
 
-    public @RequestStatus int getStatus() {
+    @RequestStatus int getStatus() {
         return mStatus;
     }
 
-    public JSONObject getPostData() {
+    JSONObject getPostData() {
         return mPostData;
     }
 
-    public void setPostData(JSONObject postData) {
+    void setPostData(JSONObject postData) {
         mPostData = postData;
     }
 
@@ -184,7 +184,7 @@ public class SCServerRequest {
         return mConfig;
     }
 
-    public void onRequestSucceeded(SCServerResponse response) {
+    void onRequestSucceeded(SCServerResponse response) {
     }
 
 }

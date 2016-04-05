@@ -7,7 +7,7 @@ class SCServerRequestAppOpen extends SCServerRequest {
 
     private static final String REQUEST_PATH = "/api/v1/mobile_apps/open";
 
-    public SCServerRequestAppOpen() {
+    SCServerRequestAppOpen() {
         super(REQUEST_PATH, null);
     }
 }

@@ -7,16 +7,16 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SCEnvironment {
+class SCEnvironment {
 
-    public static final String PLATFORM_KEY = "platform";
-    public static final String PLATFORM_VALUE = "Android";
-    public static final String PLATFORM_VERSION_KEY = "platform_version";
-    public static final String PLATFORM_BUILD_KEY = "platform_build";
-    public static final String MODEL_KEY = "model";
+    static final String PLATFORM_KEY = "platform";
+    static final String PLATFORM_VALUE = "Android";
+    static final String PLATFORM_VERSION_KEY = "platform_version";
+    static final String PLATFORM_BUILD_KEY = "platform_build";
+    static final String MODEL_KEY = "model";
 
 
-    public Map<String, String> toMap() {
+    Map<String, String> toMap() {
         Map<String, String> map = new HashMap<>();
         map.put(PLATFORM_KEY, PLATFORM_VALUE);
         map.put(PLATFORM_VERSION_KEY, Build.VERSION.RELEASE);
@@ -25,7 +25,7 @@ public class SCEnvironment {
         return map;
     }
 
-    public JSONObject toJson() {
+    JSONObject toJson() {
         return new JSONObject(toMap());
     }
 

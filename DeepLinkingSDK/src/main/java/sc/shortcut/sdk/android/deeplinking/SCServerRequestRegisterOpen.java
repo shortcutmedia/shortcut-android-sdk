@@ -6,16 +6,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class SCServerRequestRegisterOpen extends SCServerRequest {
+class SCServerRequestRegisterOpen extends SCServerRequest {
 
     private static final String LOG_TAG = SCServerRequestRegisterOpen.class.getSimpleName();
 
     private static final String REQUEST_PATH = "/api/v1/deep_links/open";
 
-    public static final String JSON_LINK_ID_KEY = "sc_link_id";
+    static final String JSON_LINK_ID_KEY = "sc_link_id";
 
 
-    public SCServerRequestRegisterOpen(SCSession session) {
+    SCServerRequestRegisterOpen(SCSession session) {
         super(REQUEST_PATH, session);
 
 

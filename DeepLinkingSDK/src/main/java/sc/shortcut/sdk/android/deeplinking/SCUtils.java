@@ -12,9 +12,9 @@ import org.json.JSONObject;
 
 import java.util.Iterator;
 
-public class SCUtils {
+class SCUtils {
 
-    public static Uri uriStripQueryParameter(Uri uri, String paramKey) {
+    static Uri uriStripQueryParameter(Uri uri, String paramKey) {
         String queryParam = uri.getQueryParameter(paramKey);
         if (queryParam == null) {
             // nothing to strip
@@ -37,7 +37,7 @@ public class SCUtils {
     /**
      * Generates a pseudo-unique ID according to http://www.pocketmagic.net/android-unique-device-id/
      */
-    public static String generateDeviceId() {
+    static String generateDeviceId() {
         return "35" + //we make this look like a valid IMEI
                 Build.BOARD.length()%10+ Build.BRAND.length()%10 +
                 Build.CPU_ABI.length()%10 + Build.DEVICE.length()%10 +
@@ -51,7 +51,7 @@ public class SCUtils {
     /**
      * Returns true if network is available
      */
-    public static boolean isNetworkAvailable(Context context) {
+    static boolean isNetworkAvailable(Context context) {
         // Copied from
         // https://udacity-github-sync-content.s3.amazonaws.com/_imgs/752/1436612063/Screen_Shot_2015-07-11_at_12.53.52.png
         ConnectivityManager connectivityManager =
@@ -60,12 +60,12 @@ public class SCUtils {
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
-    public static boolean hasPermission(Context context, String permission) {
+    static boolean hasPermission(Context context, String permission) {
         return (context.getPackageManager().checkPermission(permission, context.getPackageName())
                 == PackageManager.PERMISSION_GRANTED);
     }
 
-    public static void appendJson(JSONObject json, JSONObject jsonToAppend) {
+    static void appendJson(JSONObject json, JSONObject jsonToAppend) {
         if (jsonToAppend == null) return;
 
         try {
