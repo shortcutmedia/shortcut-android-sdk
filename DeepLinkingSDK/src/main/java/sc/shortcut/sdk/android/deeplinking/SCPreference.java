@@ -3,6 +3,9 @@ package sc.shortcut.sdk.android.deeplinking;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+/**
+ * Class <class>SCPreference</class> handles interaction with SharedPreference store.
+ */
 public class SCPreference {
 
     private static final String KEY_PREF_FIRST_LAUNCH = "is_first_launch";
