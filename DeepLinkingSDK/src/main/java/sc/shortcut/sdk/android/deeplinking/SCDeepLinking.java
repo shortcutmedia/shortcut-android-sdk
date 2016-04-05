@@ -189,7 +189,12 @@ public class SCDeepLinking {
 
     public void sendAppOpenEvent() {
         PostTask postTask = new PostTask(mContext);
-        postTask.execute(new SCServerRequestAppOpen());
+        if (mPreference.isFirstLaunch()) {
+            postTask.execute(new SCServerRequestFirstAppOpen());
+        } else {
+            postTask.execute(new SCServerRequestAppOpen());
+        }
+
     }
 
 
