@@ -5,7 +5,7 @@ import android.app.Application;
 /**
  * Application class for Shortcut projects.
  */
-public class SCDeepLinkingApp extends Application {
+public class SCApplication extends Application {
 
     @Override
     public void onCreate() {

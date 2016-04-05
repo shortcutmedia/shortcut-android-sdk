@@ -52,7 +52,7 @@ public class SCDeepLinking {
         mPreference = new SCPreference(context.getApplicationContext());
         mSessions = new HashMap<>();
 
-        if (context instanceof SCDeepLinkingApp) {
+        if (context instanceof SCApplication) {
             mAutoSessionMode = true;
             setActivityLifeCycleObserver((Application) context.getApplicationContext());
         }

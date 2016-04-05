@@ -52,7 +52,7 @@ Simply register our application class in the `Manifest.xml` configuration file a
 
 ```xml
     <application
-        android:name="sc.shortcut.sdk.android.deeplinking.SCDeepLinkingApp"
+        android:name="sc.shortcut.sdk.android.deeplinking.SCApplication"
         ...>
         <meta-data android:name="sc.shortcut.sdk.deeplinking.authToken" android:value="<your auth token>" />
 ```
@@ -61,10 +61,11 @@ That's it! Your app supports now deferred deep linking and statistics are gather
 
 #### Method 2: Extend from our Application class
 
-If you already have an Application class then extend it with `SCDeepLinkingApp`.
+If you already have an Application class then extend it with
+`SCApplication`.
 
 ```java
-  public class YourApplication extends SCDeepLinkingApp
+  public class YourApplication extends SCApplication
 ```
 
 And add the authentication token to your `Manifest.xml`.
@@ -79,7 +80,7 @@ And add the authentication token to your `Manifest.xml`.
 
 _We do not support this yet!_
 
-~~If you do not want to/can extend from `SCDeepLinkingApp` for some
+~~If you do not want to/can extend from `SCApplication` for some
 reason you can initialize the SDK yourself in your
 `Application#onCreate()` method or in the Activity receiving the
 deep link intent.~~
@@ -88,7 +89,7 @@ deep link intent.~~
   @Override
   public void onCreate() {
     super.onCreate();
-    new SCDeepLinkingApp(this);
+    new SCApplication(this);
 }
 ```
 
