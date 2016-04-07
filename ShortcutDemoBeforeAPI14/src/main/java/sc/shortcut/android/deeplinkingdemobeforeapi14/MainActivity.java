@@ -7,8 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import sc.shortcut.deeplinkingdemo.common.MainFragment;
-import sc.shortcut.sdk.android.deeplinking.SCConfig;
-import sc.shortcut.sdk.android.deeplinking.Shortcut;
+import sc.shortcut.sdk.SCConfig;
+import sc.shortcut.sdk.Shortcut;
 
 public class MainActivity extends AppCompatActivity implements MainFragment.OnFragmentInteractionListener {
 

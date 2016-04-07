@@ -8,10 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import sc.shortcut.sdk.android.deeplinking.SCConfig;
-import sc.shortcut.sdk.android.deeplinking.Shortcut;
-import sc.shortcut.sdk.android.deeplinking.SCShortLinkBuilder;
-import sc.shortcut.sdk.android.deeplinking.SCShortLinkCreateListener;
+import sc.shortcut.sdk.SCConfig;
+import sc.shortcut.sdk.Shortcut;
+import sc.shortcut.sdk.SCShortLinkBuilder;
+import sc.shortcut.sdk.SCShortLinkCreateListener;
 
 public class MainFragment extends Fragment {
 

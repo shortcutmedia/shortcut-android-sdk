@@ -2,7 +2,7 @@ package sc.shortcut.deeplinkingdemo.common;
 
 import android.content.Context;
 
-import sc.shortcut.sdk.android.deeplinking.SCPreference;
+import sc.shortcut.sdk.SCPreference;
 
 /**
  * Created by franco on 23/09/15.

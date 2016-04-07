@@ -5,7 +5,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
-        android:name="sc.shortcut.sdk.android.deeplinking.SCApplication"
+        android:name="sc.shortcut.sdk.SCApplication"
         android:vmSafeMode="true"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"

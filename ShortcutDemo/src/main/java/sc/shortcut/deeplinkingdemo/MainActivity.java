@@ -9,7 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import sc.shortcut.deeplinkingdemo.common.MainFragment;
-import sc.shortcut.sdk.android.deeplinking.Shortcut;
+import sc.shortcut.sdk.Shortcut;
 
 
 public class MainActivity extends AppCompatActivity implements MainFragment.OnFragmentInteractionListener {
