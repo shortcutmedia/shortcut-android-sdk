@@ -10,9 +10,9 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/DeepLinkingDemo" />
-            <option value="$PROJECT_DIR$/DeepLinkingDemoBeforeAPI14" />
             <option value="$PROJECT_DIR$/DeepLinkingDemoCommon" />
             <option value="$PROJECT_DIR$/DeepLinkingSDK" />
+            <option value="$PROJECT_DIR$/deeplinkingdemobeforeapi14" />
           </set>
         </option>
       </GradleProjectSettings>
