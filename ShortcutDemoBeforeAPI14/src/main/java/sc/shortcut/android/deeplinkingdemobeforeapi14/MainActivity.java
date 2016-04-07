@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnFr
         setContentView(R.layout.activity_main);
 
         if (savedInstanceState == null) { // You wanna probably ignore device rotation
-            SCConfig config = new SCConfig("1s5HTnfCDdgPy61yaDZL");
+            SCConfig config = new SCConfig("xkrEc5h7yeLxjWA-u-Cv");
             Shortcut deepLinking = Shortcut.getInstance(config, this);
             deepLinking.startSession(getIntent());
         }
