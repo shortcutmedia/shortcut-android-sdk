@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/DeepLinkingDemo/DeepLinkingDemo.iml" filepath="$PROJECT_DIR$/DeepLinkingDemo/DeepLinkingDemo.iml" />
-      <module fileurl="file://$PROJECT_DIR$/deeplinkingdemobeforeapi14/DeepLinkingDemoBeforeAPI14.iml" filepath="$PROJECT_DIR$/deeplinkingdemobeforeapi14/DeepLinkingDemoBeforeAPI14.iml" />
-      <module fileurl="file://$PROJECT_DIR$/DeepLinkingDemoCommon/DeepLinkingDemoCommon.iml" filepath="$PROJECT_DIR$/DeepLinkingDemoCommon/DeepLinkingDemoCommon.iml" />
-      <module fileurl="file://$PROJECT_DIR$/DeepLinkingSDK/DeepLinkingSDK.iml" filepath="$PROJECT_DIR$/DeepLinkingSDK/DeepLinkingSDK.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ShortcutDemo/ShortcutDemo.iml" filepath="$PROJECT_DIR$/ShortcutDemo/ShortcutDemo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ShortcutDemoBeforeAPI14/ShortcutDemoBeforeAPI14.iml" filepath="$PROJECT_DIR$/ShortcutDemoBeforeAPI14/ShortcutDemoBeforeAPI14.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ShortcutDemoCommon/ShortcutDemoCommon.iml" filepath="$PROJECT_DIR$/ShortcutDemoCommon/ShortcutDemoCommon.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ShortcutSDK/ShortcutSDK.iml" filepath="$PROJECT_DIR$/ShortcutSDK/ShortcutSDK.iml" />
       <module fileurl="file://$PROJECT_DIR$/shortcut-android-sdk.iml" filepath="$PROJECT_DIR$/shortcut-android-sdk.iml" />
     </modules>
   </component>

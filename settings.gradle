@@ -1,1 +1,1 @@
-include ':DeepLinkingDemo', ':DeepLinkingSDK', ':DeepLinkingDemoCommon', 'DeepLinkingDemoBeforeAPI14'
+include ':ShortcutDemo', ':ShortcutSDK', ':ShortcutDemoCommon', ':ShortcutDemoBeforeAPI14'

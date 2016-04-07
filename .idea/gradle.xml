@@ -9,10 +9,10 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/DeepLinkingDemo" />
-            <option value="$PROJECT_DIR$/DeepLinkingDemoCommon" />
-            <option value="$PROJECT_DIR$/DeepLinkingSDK" />
-            <option value="$PROJECT_DIR$/deeplinkingdemobeforeapi14" />
+            <option value="$PROJECT_DIR$/ShortcutDemo" />
+            <option value="$PROJECT_DIR$/ShortcutDemoBeforeAPI14" />
+            <option value="$PROJECT_DIR$/ShortcutDemoCommon" />
+            <option value="$PROJECT_DIR$/ShortcutSDK" />
           </set>
         </option>
       </GradleProjectSettings>
