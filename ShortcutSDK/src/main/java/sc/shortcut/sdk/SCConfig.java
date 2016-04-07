@@ -23,10 +23,10 @@ public class SCConfig {
     public static final int ENVIRONMENT_SANDBOX = 0;
     public static final int ENVIRONMENT_PRODUCTION = 1;
 
-    private static final String AUTH_TOKEN_KEY = "sc.shortcut.sdk.deeplinking.authToken";
-    private static final String ENVIRONMENT_KEY = "sc.shortcut.sdk.deeplinking.environment";
-    private static final String LOG_LEVEL_KEY = "sc.shortcut.sdk.deeplinking.logLevel";
-    private static final String SHORT_LINK_BASE_URL_KEY = "sc.shortcut.sdk.deeplinking.ShortLinkUrlBase";
+    private static final String AUTH_TOKEN_KEY = "sc.shortcut.sdk.authToken";
+    private static final String ENVIRONMENT_KEY = "sc.shortcut.sdk.environment";
+    private static final String LOG_LEVEL_KEY = "sc.shortcut.sdk.logLevel";
+    private static final String SHORT_LINK_BASE_URL_KEY = "sc.shortcut.sdk.ShortLinkUrlBase";
 
     private String mAuthToken;
     private String mBaseUrl;

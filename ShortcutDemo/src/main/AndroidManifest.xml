@@ -34,8 +34,8 @@
             android:label="@string/title_activity_second" >
         </activity>
 
-        <meta-data android:name="sc.shortcut.sdk.deeplinking.authToken" android:value="xkrEc5h7yeLxjWA-u-Cv" />
-        <meta-data android:name="sc.shortcut.sdk.deeplinking.ShortLinkUrlBase" android:value="http://get.sc" />
+        <meta-data android:name="sc.shortcut.sdk.authToken" android:value="xkrEc5h7yeLxjWA-u-Cv" />
+        <meta-data android:name="sc.shortcut.sdk.ShortLinkUrlBase" android:value="http://get.sc" />
     </application>
 
 </manifest>
