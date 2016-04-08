@@ -77,7 +77,7 @@ public class MainFragment extends Fragment {
                         .addIosDeepLink("pinterest://board/meissnerceramic/allein-alone")
                         .addAppStoreUrl("http://itunes.apple.com/app/id429047995?mt=8");
 
-                String shortLink = builder.createOfflineShortLink();
+                String shortLink = builder.createShortLink();
                 TextView shortLinkTextView = (TextView) rootView.findViewById(R.id.short_link_id);
                 shortLinkTextView.setText(shortLink);
 
@@ -98,7 +98,7 @@ public class MainFragment extends Fragment {
                         .addGooglePlayStoreUrl("http://play.google.com/store/apps/details?id=com.pinterest")
                         .addIosDeepLink("pinterest://board/meissnerceramic/allein-alone")
                         .addAppStoreUrl("http://itunes.apple.com/app/id429047995?mt=8");
-                String shortLink = builder.createOfflineShortLink();
+                String shortLink = builder.createShortLink();
                 TextView shortLinkTextView = (TextView) rootView.findViewById(R.id.short_link_id);
                 shortLinkTextView.setText(shortLink);
 

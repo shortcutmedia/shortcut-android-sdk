@@ -80,7 +80,7 @@ public class Shortcut {
     }
 
 
-    public String createOfflineShortLink(SCShortLinkItem item) {
+    public String createShortLink(SCShortLinkItem item) {
         Log.d(LOG_TAG, "creating short link offline");
 
         if (SCUtils.isNetworkAvailable(mContext)) {
