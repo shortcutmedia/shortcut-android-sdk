@@ -1,9 +1,10 @@
-# Shortcut Deep Linking SDK for Android
+# Shortcut SDK for Android
 
 This SDK provides the following features:
 
+- Collection of statistics (app usage, deep links).
 - Support for [deferred deep linking](https://en.wikipedia.org/wiki/Deferred_deep_linking).
-- Collection of additional statistics to build a user acquisition funnel and evaluate user activity.
+- Shortcut creation (short mobile deep links) to share from within your app.
 
 There is also an [iOS version](https://github.com/shortcutmedia/shortcut-deeplink-sdk-ios) of this SDK.
 
@@ -13,8 +14,8 @@ The SDK works with Android API 10+.
 
 ## Installation
 
-1. Download the latest .AAR file from the [releases page](https://github.com/shortcutmedia/shortcut-deeplink-sdk-android/releases) and copy it to the project's libs directory (_typically `app/libs`_). 
-2. Add a directory repository in `build.gradle` and add `compile 'sc.shortcut.sdk.android.deeplinking:sc-deeplinking:0.2.1@aar'` to the dependencies section of your application's `build.gradle` file.
+1. Download the latest .AAR file from the [releases page](https://github.com/shortcutmedia/shortcut-android-sdk/releases) and copy it to the project's libs directory (_typically `app/libs`_). 
+2. Add a directory repository in `build.gradle` and add `compile 'sc.shortcut.sdk:shortcut-sdk:0.1.0@aar'` to the dependencies section of your application's `build.gradle` file.
 
 ```gradle
 repositories {
@@ -26,18 +27,23 @@ repositories {
 
 ```gradle
 dependencies {
-    compile 'sc.shortcut.sdk.android.deeplinking:sc-deeplinking:0.1.0@aar'
+    compile 'sc.shortcut.sdk:shortcut-sdk:0.1.0@aar'
 }
 ```
 
-If for some reason this installion method does not work for you, check out [alternative installation methods](#alternative-installation-methods).
+If for some reason this installion method does not work, check out [alternative installation methods](#alternative-installation-methods).
 
 
 ## Prerequisites
 
-To make use of this SDK you need an Android app that supports deep linking. The section below [Add deep linking support to your app](#add-deep-linking-support-to-your-app) explains how to configure your app to support deep links. Please follow the instructions first.
+To make use of this SDK you need the following:
 
-Furthermore you will need an **API key**. You can retrieve the key from the [Shortcut Manager](http://manager.shortcutmedia.com/users/api_keys).
+- An API key. Use the [Shortcut Manager](http://manager.shortcutmedia.com/mobile_apps) to create a mobile app with an associated API key.
+
+For the deep linking features you need in addition:
+
+- An Android app that supports deep linking. The section below [Add deep linking support to your app](#add-deep-linking-support-to-your-app) explains how to configure your app to support deep links.
+ 
 
 ## Integration into your app
 
@@ -52,17 +58,16 @@ Simply register our application class in the `Manifest.xml` configuration file a
 
 ```xml
     <application
-        android:name="sc.shortcut.sdk.android.deeplinking.SCApplication"
+        android:name="sc.shortcut.sdk.SCApplication"
         ...>
-        <meta-data android:name="sc.shortcut.sdk.deeplinking.authToken" android:value="<your auth token>" />
+        <meta-data android:name="sc.shortcut.sdk.authToken" android:value="<your auth token>" />
 ```
 
 That's it! Your app supports now deferred deep linking and statistics are gathered automatically.
 
 #### Method 2: Extend from our Application class
 
-If you already have an Application class then extend it with
-`SCApplication`.
+If you already have an Application class then extend it with `SCApplication`.
 
 ```java
   public class YourApplication extends SCApplication
@@ -72,7 +77,7 @@ And add the authentication token to your `Manifest.xml`.
 
 ```xml
   <application>
-    <meta-data android:name="sc.shortcut.sdk.deeplinking.authToken" android:value="<your key>" />
+    <meta-data android:name="sc.shortcut.sdk.authToken" android:value="<your key>" />
     ...
 ```
 
@@ -107,6 +112,9 @@ In your entry Activity add the following:
       SCConfig config = new SCConfig("<your auth token>");
       Shortcut shortcut = Shortcut.getInstance(config, this);    
       if (savedInstanceState == null) { // You wanna probably ignore device rotation
+        shortcut.sendAppOpenEvent();
+        
+        // if app was opened with a deep link
         shortcut.startSession(getIntent());
       }
   }
@@ -154,14 +162,46 @@ protected void onCreate(Bundle savedInstanceState) {
 
 ### Creating Short Links (short mobile deep links)
 
+Shortcut allows you to generate short links immediately, no (potentially slow) backend roundtrip is required. This works as follows:
+
+1. The SDK generates a unique short link and returns it to you immediately
+2. The generated short link as well as all its parameters (website URL, title, deep links) are sent to the Shortcut backend in the background
+
+This way you get a link immediately that you can present in a share sheet or send out via email, no need to wait for a backend.
+
 Here is an example how to create a Short Link.
 ```java
+
 SCShortLinkBuilder builder = new SCShortLinkBuilder(getActivity())
-        .addWebLink("https://www.pinterest.com/meissnerceramic/allein-alone")
-        .addAndroidDeepLink("pinterest://board/meissnerceramic/allein-alone")
-        .addGooglePlayStoreUrl("http://play.google.com/store/apps/details?id=com.pinterest")
-        .addIosDeepLink("pinterest://board/meissnerceramic/allein-alone")
-        .addAppStoreUrl("http://itunes.apple.com/app/id429047995?mt=8");
+      .addWebLink("https://www.pinterest.com/meissnerceramic/allein-alone")
+      .addAndroidDeepLink("pinterest://board/meissnerceramic/allein-alone")
+      .addGooglePlayStoreUrl("http://play.google.com/store/apps/details?id=com.pinterest")
+      .addIosDeepLink("pinterest://board/meissnerceramic/allein-alone")
+      .addAppStoreUrl("http://itunes.apple.com/app/id429047995?mt=8");
+      
+// Returns null if network unavailble 
+String shortLink = builder.createShortLink();
+```
+
+#### Alternative: Asynchronous creation
+
+There is also an asynchronous way to create a new short link. It works as follows:
+
+1. The SDK sends the parameters for the short link to the backend
+2. The backend generates a new short link and returns it to the SDK
+3. The SDK notifies you of the new short link via a callback listener
+
+This way you have to wait for the backend to generate the short link, but if there are any errors (e.g. no network connection) then you can react to them.
+
+The implementation of the example above would look like this with the asynchronous call:
+```java
+
+SCShortLinkBuilder builder = new SCShortLinkBuilder(getActivity())
+      .addWebLink("https://www.pinterest.com/meissnerceramic/allein-alone")
+      .addAndroidDeepLink("pinterest://board/meissnerceramic/allein-alone")
+      .addGooglePlayStoreUrl("http://play.google.com/store/apps/details?id=com.pinterest")
+      .addIosDeepLink("pinterest://board/meissnerceramic/allein-alone")
+      .addAppStoreUrl("http://itunes.apple.com/app/id429047995?mt=8");
 
 builder.createShortLink(new SCShortLinkCreateListener() {
     @Override
@@ -170,6 +210,37 @@ builder.createShortLink(new SCShortLinkCreateListener() {
     }
 });
 ```
+
+##### Different deep links per platform
+If your deep links are not identical for the different platforms your app supports (iOS, Android, Windows Phone) then you can specify them on a per-platform basis: 
+
+```java
+SCShortLinkBuilder builder = new SCShortLinkBuilder(getActivity())
+      .addWebLink("https://www.pinterest.com/meissnerceramic/allein-alone")
+      .addAndroidDeepLink("pinterest://board/meissnerceramic/allein-alone")
+      .addGooglePlayStoreUrl("http://play.google.com/store/apps/details?id=com.pinterest")
+      .addIosDeepLink("pinterest://board/meissnerceramic/allein-alone")
+      .addAppStoreUrl("http://itunes.apple.com/app/id429047995?mt=8");
+```
+
+##### Custom domain for short links
+If you set up a custon domain for your short links in the Shortcut Manager and want to use it for short links created from the SDK as well, then you need to tell the SDK about it. 
+
+This is done either by declaring it in the `Manifest.xml` file, 
+
+```xml
+  <application>
+    <meta-data android:name="sc.shortcut.sdk.ShortLinkUrlBase" android:value="http://short.com" />
+    ...
+```
+
+or by setting the config
+
+```java
+SCConfig config = Shortcut.getInstance().getConfig();
+config.setBaseUrl("http://short.com");
+```
+
 
 ### What's next?
 
