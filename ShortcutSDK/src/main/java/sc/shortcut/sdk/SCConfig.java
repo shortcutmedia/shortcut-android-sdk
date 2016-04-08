@@ -26,7 +26,7 @@ public class SCConfig {
     private static final String AUTH_TOKEN_KEY = "sc.shortcut.sdk.authToken";
     private static final String ENVIRONMENT_KEY = "sc.shortcut.sdk.environment";
     private static final String LOG_LEVEL_KEY = "sc.shortcut.sdk.logLevel";
-    private static final String SHORT_LINK_BASE_URL_KEY = "sc.shortcut.sdk.ShortLinkUrlBase";
+    private static final String SHORT_LINK_BASE_URL_KEY = "sc.shortcut.sdk.shortLinkUrlBase";
 
     private String mAuthToken;
     private String mBaseUrl;

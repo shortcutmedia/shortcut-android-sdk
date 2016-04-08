@@ -35,7 +35,7 @@
         </activity>
 
         <meta-data android:name="sc.shortcut.sdk.authToken" android:value="xkrEc5h7yeLxjWA-u-Cv" />
-        <meta-data android:name="sc.shortcut.sdk.ShortLinkUrlBase" android:value="http://get.sc" />
+        <meta-data android:name="sc.shortcut.sdk.shortLinkUrlBase" android:value="http://get.sc" />
     </application>
 
 </manifest>

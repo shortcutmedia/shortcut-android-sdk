@@ -230,7 +230,7 @@ This is done either by declaring it in the `Manifest.xml` file,
 
 ```xml
   <application>
-    <meta-data android:name="sc.shortcut.sdk.ShortLinkUrlBase" android:value="http://short.com" />
+    <meta-data android:name="sc.shortcut.sdk.shortLinkUrlBase" android:value="http://short.com" />
     ...
 ```
 
