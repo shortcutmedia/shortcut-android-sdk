@@ -51,12 +51,9 @@ public class MainFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                SCShortLinkBuilder builder = new SCShortLinkBuilder(getActivity())
+                SCShortLinkBuilder builder = new SCShortLinkBuilder()
                         .addWebLink("https://www.pinterest.com/meissnerceramic/allein-alone")
-                        .addAndroidDeepLink("pinterest://board/meissnerceramic/allein-alone")
-                        .addGooglePlayStoreUrl("http://play.google.com/store/apps/details?id=com.pinterest")
-                        .addIosDeepLink("pinterest://board/meissnerceramic/allein-alone")
-                        .addAppStoreUrl("http://itunes.apple.com/app/id429047995?mt=8");
+                        .addDeepLink("pinterest://board/meissnerceramic/allein-alone");
 
                 builder.createShortLink(new SCShortLinkCreateListener() {
                     @Override
@@ -71,12 +68,9 @@ public class MainFragment extends Fragment {
         rootView.findViewById(R.id.create_short_link).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SCShortLinkBuilder builder = new SCShortLinkBuilder(getActivity())
+                SCShortLinkBuilder builder = new SCShortLinkBuilder()
                         .addWebLink("https://www.pinterest.com/meissnerceramic/allein-alone")
-                        .addAndroidDeepLink("pinterest://board/meissnerceramic/allein-alone")
-                        .addGooglePlayStoreUrl("http://play.google.com/store/apps/details?id=com.pinterest")
-                        .addIosDeepLink("pinterest://board/meissnerceramic/allein-alone")
-                        .addAppStoreUrl("http://itunes.apple.com/app/id429047995?mt=8");
+                        .addDeepLink("pinterest://board/meissnerceramic/allein-alone");
 
                 String shortLink = builder.createShortLink();
                 TextView shortLinkTextView = (TextView) rootView.findViewById(R.id.short_link_id);
@@ -93,17 +87,16 @@ public class MainFragment extends Fragment {
                 SCConfig config = Shortcut.getInstance().getConfig();
                 config.setBaseUrl("http://short.com");
 
-                SCShortLinkBuilder builder = new SCShortLinkBuilder(getActivity())
+                SCShortLinkBuilder builder = new SCShortLinkBuilder()
                         .addWebLink("https://www.pinterest.com/meissnerceramic/allein-alone")
                         .addAndroidDeepLink("pinterest://board/meissnerceramic/allein-alone")
-                        .addGooglePlayStoreUrl("http://play.google.com/store/apps/details?id=com.pinterest")
                         .addIosDeepLink("pinterest://board/meissnerceramic/allein-alone")
-                        .addAppStoreUrl("http://itunes.apple.com/app/id429047995?mt=8");
+                        .addWindowsPhoneDeepLink("pinterest://board/meissnerceramic/allein-alone");
                 String shortLink = builder.createShortLink();
                 TextView shortLinkTextView = (TextView) rootView.findViewById(R.id.short_link_id);
                 shortLinkTextView.setText(shortLink);
 
-                // reset baes url again
+                // reset base url again
                 config.setBaseUrl(null);
             }
         });
@@ -111,13 +104,10 @@ public class MainFragment extends Fragment {
         rootView.findViewById(R.id.share_short_link).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SCShortLinkBuilder builder = new SCShortLinkBuilder(getActivity())
+                SCShortLinkBuilder builder = new SCShortLinkBuilder()
                         .addWebLink("https://www.pinterest.com/meissnerceramic/allein-alone")
-                        .addAndroidDeepLink("pinterest://board/meissnerceramic/allein-alone")
-                        .addIosDeepLink("pinterest://board/meissnerceramic/allein-alone");
-
+                        .addDeepLink("pinterest://board/meissnerceramic/allein-alone");
                 String shortLink = builder.createShortLink();
-
 
                 // Create the new Intent using the 'Send' action.
                 Intent sendIntent = new Intent(Intent.ACTION_SEND);
