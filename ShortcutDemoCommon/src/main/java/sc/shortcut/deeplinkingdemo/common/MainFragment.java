@@ -1,6 +1,7 @@
 package sc.shortcut.deeplinkingdemo.common;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -104,6 +105,25 @@ public class MainFragment extends Fragment {
 
                 // reset baes url again
                 config.setBaseUrl(null);
+            }
+        });
+
+        rootView.findViewById(R.id.share_short_link).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SCShortLinkBuilder builder = new SCShortLinkBuilder(getActivity())
+                        .addWebLink("https://www.pinterest.com/meissnerceramic/allein-alone")
+                        .addAndroidDeepLink("pinterest://board/meissnerceramic/allein-alone")
+                        .addIosDeepLink("pinterest://board/meissnerceramic/allein-alone");
+
+                String shortLink = builder.createShortLink();
+
+
+                // Create the new Intent using the 'Send' action.
+                Intent sendIntent = new Intent(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, shortLink);
+                sendIntent.setType("text/plain");
+                startActivity(sendIntent);
             }
         });
 

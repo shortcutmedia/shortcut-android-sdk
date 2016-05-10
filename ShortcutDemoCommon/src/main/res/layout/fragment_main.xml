@@ -47,6 +47,11 @@
         android:text="Create Short Link with custome URL"
         android:id="@+id/create_short_link_custom_url"/>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Share Short Link"
+        android:id="@+id/share_short_link"/>
 
     <TextView
         android:id="@+id/short_link_id"
