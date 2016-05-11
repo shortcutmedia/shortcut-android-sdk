@@ -13,11 +13,9 @@ public class SCPreference {
 
 
     private SharedPreferences mSharedPreferences;
-    private Context mContext;
     private SharedPreferences.Editor mEditor;
 
     public SCPreference(Context context) {
-        mContext = context;
         mSharedPreferences = context.getSharedPreferences(SHARED_PREFERENCE_FILE,
                 Context.MODE_PRIVATE);
         mEditor = mSharedPreferences.edit();

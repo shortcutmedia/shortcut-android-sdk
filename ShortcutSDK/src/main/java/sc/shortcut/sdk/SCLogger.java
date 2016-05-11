@@ -27,10 +27,12 @@ public class SCLogger {
 
     private @LogLevel int mLogLevel = LOG_LEVEL_INFO;
 
+    @SuppressWarnings("unused")
     public @LogLevel int getLogLevel() {
         return mLogLevel;
     }
 
+    @SuppressWarnings("unused")
     public void setLogLevel(@LogLevel int logLevel) {
         mLogLevel = logLevel;
     }

@@ -30,6 +30,7 @@ class SCServerRequestCreateShortLink  extends SCServerRequest {
         mCallback = callback;
     }
 
+    @SuppressWarnings("unused")
     void setOnShortLinkCreateListener(SCShortLinkCreateListener callback) {
         mCallback = callback;
     }

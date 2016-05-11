@@ -1,8 +1,5 @@
 package sc.shortcut.sdk;
 
-/**
- * Created by franco on 21/09/15.
- */
 final class SCErrorMessages {
 
     static final String SANITIZE_NOT_AVAILABLE_MESSAGE =

@@ -42,6 +42,7 @@ public class SCConfig {
         }
     }
 
+    @SuppressWarnings("unused")
     public @SCLogger.LogLevel int getLogLevel() {
         return mLogLevel;
     }
@@ -50,6 +51,7 @@ public class SCConfig {
         mLogLevel = logLevel;
     }
 
+    @SuppressWarnings("unused")
     public @Environment int getEnvironment() {
         return mEnvironment;
     }
@@ -62,6 +64,7 @@ public class SCConfig {
         return mAuthToken;
     }
 
+    @SuppressWarnings("unused")
     public void setAuthToken(String authToken) {
         mAuthToken = authToken;
     }
