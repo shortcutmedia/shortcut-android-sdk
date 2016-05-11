@@ -174,12 +174,9 @@ Here is an example how to create a Short Link.
 
 SCShortLinkBuilder builder = new SCShortLinkBuilder(getActivity())
       .addWebLink("https://www.pinterest.com/meissnerceramic/allein-alone")
-      .addAndroidDeepLink("pinterest://board/meissnerceramic/allein-alone")
-      .addGooglePlayStoreUrl("http://play.google.com/store/apps/details?id=com.pinterest")
-      .addIosDeepLink("pinterest://board/meissnerceramic/allein-alone")
-      .addAppStoreUrl("http://itunes.apple.com/app/id429047995?mt=8");
-      
-// Returns null if network unavailble 
+      .addDeepLink("pinterest://board/meissnerceramic/allein-alone");
+
+// Returns null if network unavailble or if for some reason link could not have been generated
 String shortLink = builder.createShortLink();
 ```
 
@@ -198,10 +195,7 @@ The implementation of the example above would look like this with the asynchrono
 
 SCShortLinkBuilder builder = new SCShortLinkBuilder(getActivity())
       .addWebLink("https://www.pinterest.com/meissnerceramic/allein-alone")
-      .addAndroidDeepLink("pinterest://board/meissnerceramic/allein-alone")
-      .addGooglePlayStoreUrl("http://play.google.com/store/apps/details?id=com.pinterest")
-      .addIosDeepLink("pinterest://board/meissnerceramic/allein-alone")
-      .addAppStoreUrl("http://itunes.apple.com/app/id429047995?mt=8");
+      .addDeepLink("pinterest://board/meissnerceramic/allein-alone");
 
 builder.createShortLink(new SCShortLinkCreateListener() {
     @Override
@@ -217,10 +211,9 @@ If your deep links are not identical for the different platforms your app suppor
 ```java
 SCShortLinkBuilder builder = new SCShortLinkBuilder(getActivity())
       .addWebLink("https://www.pinterest.com/meissnerceramic/allein-alone")
-      .addAndroidDeepLink("pinterest://board/meissnerceramic/allein-alone")
-      .addGooglePlayStoreUrl("http://play.google.com/store/apps/details?id=com.pinterest")
-      .addIosDeepLink("pinterest://board/meissnerceramic/allein-alone")
-      .addAppStoreUrl("http://itunes.apple.com/app/id429047995?mt=8");
+      .addAndroidDeepLink("pinterest+something://item/allein-alone")
+      .addIosDeepLink("https://www.pinterest.com/meissnerceramic/allein-alone")
+      .addWindowsPhoneDeepLink("pinterest://board/meissnerceramic/allein-alone");
 ```
 
 ##### Custom domain for short links
@@ -234,7 +227,7 @@ This is done either by declaring it in the `Manifest.xml` file,
     ...
 ```
 
-or by setting the config
+or by setting the config programmatically 
 
 ```java
 SCConfig config = Shortcut.getInstance().getConfig();
